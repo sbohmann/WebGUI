@@ -6,6 +6,7 @@ window.onload = () => {
 class Window {
     constructor() {
         this.div = document.createElement('div')
+        this.div.style.position = 'absolute'
     }
     
     setBounds(x, y, width, height) {
@@ -26,8 +27,12 @@ class Window {
         this.div.style.height = px(height)
     }
     
-    add(window) {
-        this.div.appendChild(window.div)
+    add(child) {
+        if (child instanceof Window) {
+            this.div.appendChild(child.div)
+        } else {
+            this.div.appendChild(child)
+        }
     }
 }
 
@@ -69,11 +74,10 @@ class WebGui {
     
     createColorfulRectangleWithBounds(x, y, w, h) {
         let window = new Window()
-        window.div.style.position = 'absolute'
         window.setBounds(x, y, w, h)
         let color = this.randomColor()
         window.div.style.backgroundColor = color
-        window.div.appendChild(document.createTextNode(color))
+        window.add(document.createTextNode(color))
         this.mainWindow.add(window)
     }
     

@@ -4,11 +4,19 @@ window.onload = () => {
 };
 
 class Window {
-    constructor(width, height) {
+    constructor() {
         this.div = document.createElement('div')
-        if (defined(width) && defined(height)) {
-            this.setSize(width, height)
-        }
+    }
+    
+    setBounds(x, y, width, height) {
+        this.x = x
+        this.y = y
+        this.width = width
+        this.height = height
+        this.div.style.left = px(x)
+        this.div.style.top = px(y)
+        this.div.style.width = px(width)
+        this.div.style.height = px(height)
     }
     
     setSize(width, height) {
@@ -62,10 +70,7 @@ class WebGui {
     createColorfulRectangleWithBounds(x, y, w, h) {
         let window = new Window()
         window.div.style.position = 'absolute'
-        window.div.style.left = px(x)
-        window.div.style.top = px(y)
-        window.div.style.width = px(w)
-        window.div.style.height = px(h)
+        window.setBounds(x, y, w, h)
         let color = this.randomColor()
         window.div.style.backgroundColor = color
         window.div.appendChild(document.createTextNode(color))
@@ -94,10 +99,6 @@ class WebGui {
         let blue = randomInt(256)
         return '#' + hex(red, 2) + hex(green, 2) + hex(blue, 2)
     }
-}
-
-function defined(value) {
-    return typeof value !== 'undefined';
 }
 
 function px(size) {

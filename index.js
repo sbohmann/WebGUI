@@ -3,6 +3,26 @@ window.onload = () => {
     new WebGui().run()
 };
 
+class Window {
+    constructor(width, height) {
+        this.div = document.createElement('div')
+        if (defined(width) && defined(height)) {
+            this.setSize(width, height)
+        }
+    }
+    
+    setSize(width, height) {
+        this.width = width
+        this.height = height
+        this.div.style.width = px(width)
+        this.div.style.height = px(height)
+    }
+    
+    add(window) {
+        this.div.appendChild(window.div)
+    }
+}
+
 class WebGui {
     run() {
         this.createUi()
@@ -11,24 +31,21 @@ class WebGui {
     
     createUi() {
         this.createMainDiv()
-        document.body.appendChild(this.mainDiv)
+        document.body.appendChild(this.mainWindow.div)
         window.onresize = () => this.layout()
     }
     
     createMainDiv() {
-        this.mainDiv = createDiv()
-        this.mainDiv.style.backgroundColor = '#aabbcc'
-        this.mainDiv.style.position = 'relative'
+        this.mainWindow = new Window()
+        this.mainWindow.div.style.backgroundColor = '#aabbcc'
+        this.mainWindow.div.style.position = 'relative'
     }
     
     layout() {
         document.body.style.margin = '0'
         document.body.style.padding = '0'
         document.body.style.height = px(window.innerHeight)
-        this.mainWidth = document.body.clientWidth
-        this.mainHeight = document.body.clientHeight
-        this.mainDiv.style.width = px(this.mainWidth)
-        this.mainDiv.style.height = px(this.mainHeight)
+        this.mainWindow.setSize(document.body.clientWidth, document.body.clientHeight)
         this.createColorfulRectangles()
     }
     
@@ -43,34 +60,32 @@ class WebGui {
     }
     
     createColorfulRectangleWithBounds(x, y, w, h) {
-        console.log('x: ' + x + ', y: ' + y + ', w: ' + w + ', h: ' + h)
-        let div = createDiv()
-        div.style.position = 'absolute'
-        div.style.left = px(x)
-        div.style.top = px(y)
-        div.style.width = px(w)
-        div.style.height = px(h)
+        let window = new Window()
+        window.div.style.position = 'absolute'
+        window.div.style.left = px(x)
+        window.div.style.top = px(y)
+        window.div.style.width = px(w)
+        window.div.style.height = px(h)
         let color = this.randomColor()
-        div.style.backgroundColor = color
-        div.appendChild(document.createTextNode(color))
-        console.log(div.style)
-        this.mainDiv.appendChild(div)
+        window.div.style.backgroundColor = color
+        window.div.appendChild(document.createTextNode(color))
+        this.mainWindow.add(window)
     }
     
     randomW() {
-        return randomInt(this.mainWidth)
+        return randomInt(this.mainWindow.width)
     }
     
     randomH() {
-        return randomInt(this.mainHeight)
+        return randomInt(this.mainWindow.height)
     }
     
     randomX(w) {
-        return randomInt(this.mainWidth - w)
+        return randomInt(this.mainWindow.width - w)
     }
     
     randomY(h) {
-        return randomInt(this.mainHeight - h)
+        return randomInt(this.mainWindow.height - h)
     }
     
     randomColor() {
@@ -81,26 +96,28 @@ class WebGui {
     }
 }
 
-function px(size) {
-    let result = size + 'px';
-    console.log(result)
-    return result
+function defined(value) {
+    return typeof value !== 'undefined';
 }
 
-function createDiv() {
-    return document.createElement('div')
+function px(size) {
+    return size + 'px';
 }
 
 function randomInt(exclusiveMaximum) {
     return Math.floor(Math.random() * exclusiveMaximum);
 }
 
+/**
+ * @param {Number} value
+ * @param minDigits
+ * @returns {string}
+ */
 function hex(value, minDigits) {
     let result = value.toString(16)
     if (result.length < minDigits) {
         result = padding(minDigits - result.length) + result
     }
-    console.log(result)
     return result
 }
 

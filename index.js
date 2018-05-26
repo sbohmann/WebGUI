@@ -109,7 +109,7 @@ function randomInt(exclusiveMaximum) {
 }
 
 /**
- * @param {Number} value
+ * @param {number} value
  * @param minDigits
  * @returns {string}
  */

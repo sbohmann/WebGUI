@@ -1,0 +1,17 @@
+body {
+    background: #ffc;
+    padding: 0;
+}
+
+#editor {
+    margin: 0;
+    position: absolute;
+    left: 7px;
+    top: 7px;
+    right: 7px;
+    bottom: 7px;
+    background: white;
+    border: solid 1px #963;
+    height: auto;
+    column-fill: ;
+}

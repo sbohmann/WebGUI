@@ -13,7 +13,6 @@ function px(n) {
     return n + 'px'
 }
 
-
 class Editor {
     constructor() {
         this.createMainElement_()

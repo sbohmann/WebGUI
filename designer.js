@@ -31,14 +31,18 @@ class Editor {
         this.canvas_ = document.createElement('canvas')
         this.styleCanvas_()
         this.mainElement_.appendChild(this.canvas_)
-        this.resizeCanvas_()
-        this.mainElement_.onresize = () => { console.log('onresize'); this.resizeCanvas_() }
+        window.onresize = () => {
+            console.log('onresize')
+            this.resizeCanvas_()
+        }
+        setTimeout(() => this.resizeCanvas_(), 0)
     }
     
     styleCanvas_() {
         let style = this.canvas_.style
         style.backgroundColor = '#def'
         style.position = 'absolute'
+        style.display = 'block'
         style.left = '0'
         style.top = '0'
         style.width = '100%'
@@ -46,9 +50,9 @@ class Editor {
     }
     
     resizeCanvas_() {
-        this.canvas_.width = this.mainElement_.clientWidth
-        this.canvas_.height = this.mainElement_.clientHeight
-        console.log(this.canvas_.width + ' / ' + this.canvas_.clientHeight)
+        this.canvas_.width = this.canvas_.clientWidth
+        this.canvas_.height = this.canvas_.clientHeight
+        console.log(this.canvas_.width + ' / ' + this.canvas_.height)
         this.paintCanvas_()
     }
     

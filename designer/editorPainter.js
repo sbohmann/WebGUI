@@ -1,6 +1,7 @@
 
 class EditorPainter {
-    constructor(rect, width, height, graphicsContext) {
+    constructor(rects, width, height, graphicsContext) {
+        this._rects = rects
         this._width = width
         this._height = height
         this._graphicsContext = graphicsContext
@@ -11,11 +12,18 @@ class EditorPainter {
     }
     
     _paint(g) {
-        g.fillStyle = '#d66'
-        g.lineWidth = 5
-        g.beginPath()
-        g.moveTo(100, 100)
-        g.lineTo(200, 200)
-        g.stroke()
+        this._rects.forEach(rect => {
+            g.fillStyle = '#fff8f8'
+            g.lineWidth = 5
+            g.beginPath()
+            g.moveTo(rect.x, rect.y)
+            g.lineTo(rect.x + rect.width, rect.y)
+            g.lineTo(rect.x + rect.width, rect.y + rect.height)
+            g.lineTo(rect.x, rect.y + rect.height)
+            g.lineTo(rect.x, rect.y)
+            g.closePath()
+            g.fill()
+            g.stroke()
+        })
     }
 }

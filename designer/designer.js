@@ -1,3 +1,4 @@
+
 window.onload = setup
 
 function setup() {
@@ -11,26 +12,35 @@ function setup() {
 function createDummyRects() {
     let result = []
     for (let n of Range.to(7)) {
-        console.log(n)
+        result.push({
+            x: randomInt(500),
+            y: randomInt(500),
+            width: randomInt(200),
+            height: randomInt(200)
+        })
     }
     return result
 }
 
+function randomInt(exclusiveMaximum) {
+    return Math.floor(Math.random() * exclusiveMaximum);
+}
+
 class Range {
-    constructor(fromInclusive, toExclusive) {
-        this._fromInclusive = fromInclusive
-        this._toExclusive = toExclusive
+    constructor(inclusiveMinimum, exclusiveMaximum) {
+        this._inclusiveMinimum = inclusiveMinimum
+        this._exclusiveMaximum = exclusiveMaximum
         this[Symbol.iterator] = () => this._createIterator()
     }
     
-    static to(toExclusive) {
-        return new Range(0, toExclusive)
+    static to(exclusiveMaximum) {
+        return new Range(0, exclusiveMaximum)
     }
     
     _createIterator() {
         return {
-            current: this._fromInclusive,
-            last: this._toExclusive,
+            current: this._inclusiveMinimum,
+            last: this._exclusiveMaximum,
             
             next() {
                 if (this.current <= this.last) {

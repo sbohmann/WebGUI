@@ -10,22 +10,6 @@ class Range {
         return new Range(0, exclusiveMaximum)
     }
     
-    // TODO remove
-    // _createIterator() {
-    //     return {
-    //         currentValue: this._inclusiveMinimum,
-    //         exclusiveMaximum: this._exclusiveMaximum,
-    //
-    //         next() {
-    //             if (this.currentValue < this.exclusiveMaximum) {
-    //                 return {done: false, value: this.currentValue++};
-    //             } else {
-    //                 return {done: true};
-    //             }
-    //         }
-    //     }
-    // }
-    
     * _createIterator() {
         for (let value = this._inclusiveMinimum; value < this._exclusiveMaximum; ++value) {
             yield value;

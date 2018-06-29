@@ -1,41 +1,41 @@
-console.log("hey! I could set up some constants, class &c. right here and now!")
 
-class Fun {
-    enjoy() {
-        console.log("Enjoying the fun")
+Range = require('../common/range.js')
+
+let expect = require('chai').expect
+
+function testSimpleRange(maximum) {
+    let value = 0
+    for (let n of Range.to(maximum)) {
+        expect(n).to.be.equal(value)
+        expect(n < maximum).to.be.true
+        ++value
     }
 }
 
-describe("something", () => {
-    it("something even more specific", () => {
-        (function recur(n) {
-            if (n === undefined) {
-                console.log("'twas undefined! So be it 10...")
-                recur(10)
-            } else if (n < 100) {
-                recur(n + 3)
-            } else {
-                console.log("recur it will no longer at n equal to " + n)
+function testComplexRange(minimum, maximum) {
+    let value = minimum
+    for (let n of new Range(minimum, maximum)) {
+        expect(n).to.be.equal(value)
+        expect(n < maximum).to.be.true
+        expect(minimum < maximum).to.be.true
+        ++value
+    }
+}
+
+let values = [1000, 20, 3, 2, 1, 0, -1, -2, -3, -20, -1000]
+
+describe("Range", () => {
+    it("creates correct simple results", () => {
+        for (let value of values) {
+            testSimpleRange(value)
+        }
+    })
+    
+    it("creates correct complex results", () => {
+        for (let min of values) {
+            for (let max of values) {
+                testComplexRange(min, max)
             }
-        })()
-        new Fun().enjoy()
+        }
     })
 })
-
-describe('addTwoNumbers()', () => {
-    it('should add two numbers', () => {
-        // 1. ARRANGE
-        let x = 5;
-        let y = 1;
-        let sum1 = x + y;
-        
-        // 2. ACT
-        let sum2 = y + x;
-        
-        // 3. ASSERT
-        // expect(sum2).to.be.equal(sum1);
-        if (sum2 !== sum1) {
-            throw "Addition not commutative on this machine"
-        }
-    });
-});

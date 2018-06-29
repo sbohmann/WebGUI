@@ -26,29 +26,3 @@ function randomInt(exclusiveMaximum) {
     return Math.floor(Math.random() * exclusiveMaximum);
 }
 
-class Range {
-    constructor(inclusiveMinimum, exclusiveMaximum) {
-        this._inclusiveMinimum = inclusiveMinimum
-        this._exclusiveMaximum = exclusiveMaximum
-        this[Symbol.iterator] = () => this._createIterator()
-    }
-    
-    static to(exclusiveMaximum) {
-        return new Range(0, exclusiveMaximum)
-    }
-    
-    _createIterator() {
-        return {
-            current: this._inclusiveMinimum,
-            last: this._exclusiveMaximum,
-            
-            next() {
-                if (this.current <= this.last) {
-                    return {done: false, value: this.current++};
-                } else {
-                    return {done: true};
-                }
-            }
-        }
-    }
-}

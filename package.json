@@ -2,7 +2,6 @@
   "name": "webgui",
   "version": "1.0.0",
   "description": "the web gui exploration project",
-  "main": "entry.js",
   "scripts": {
     "test": "mocha"
   },
@@ -17,6 +16,7 @@
   },
   "homepage": "https://github.com/sbohmann/WebGUI#readme",
   "devDependencies": {
+    "chai": "^4.1.2",
     "mocha": "^5.2.0"
   }
 }

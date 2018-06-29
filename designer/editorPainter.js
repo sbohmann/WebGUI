@@ -4,26 +4,65 @@ class EditorPainter {
         this._rects = rects
         this._width = width
         this._height = height
-        this._graphicsContext = graphicsContext
+        this._g = graphicsContext
     }
     
     run() {
-        this._paint(this._graphicsContext)
+        this._paint()
     }
     
-    _paint(g) {
+    _paint() {
+        this._paintBorder()
+        this._paintRects()
+    }
+    
+    _paintBorder() {
+        this._setBorderStyle()
+        this._paintBorderRect()
+    }
+    
+    _setBorderStyle() {
+        this._g.strokeStyle = '#99cc99'
+        this._g.lineWidth = 12
+    }
+    
+    _paintBorderRect() {
+        this._g.beginPath()
+        this._g.moveTo(0, 0)
+        this._g.lineTo(0 + this._width, 0)
+        this._g.lineTo(0 + this._width, 0 + this._height)
+        this._g.lineTo(0, 0 + this._height)
+        this._g.lineTo(0, 0)
+        this._g.closePath()
+        this._g.stroke()
+    }
+    
+    _paintRects() {
+        this._setRectStyle()
         this._rects.forEach(rect => {
-            g.fillStyle = '#fff8f8'
-            g.lineWidth = 5
-            g.beginPath()
-            g.moveTo(rect.x, rect.y)
-            g.lineTo(rect.x + rect.width, rect.y)
-            g.lineTo(rect.x + rect.width, rect.y + rect.height)
-            g.lineTo(rect.x, rect.y + rect.height)
-            g.lineTo(rect.x, rect.y)
-            g.closePath()
-            g.fill()
-            g.stroke()
+            this._paintRect(rect)
         })
+    }
+    
+    _setRectStyle() {
+        this._g.fillStyle = '#fff8f8'
+        this._g.strokeStyle = 'black'
+        this._g.lineWidth = 5
+    }
+    
+    _paintRect(rect) {
+        this._g.beginPath()
+        this._createRectPath(rect)
+        this._g.fill()
+        this._g.stroke()
+    }
+    
+    _createRectPath(rect) {
+        this._g.moveTo(rect.x, rect.y)
+        this._g.lineTo(rect.x + rect.width, rect.y)
+        this._g.lineTo(rect.x + rect.width, rect.y + rect.height)
+        this._g.lineTo(rect.x, rect.y + rect.height)
+        this._g.lineTo(rect.x, rect.y)
+        this._g.closePath()
     }
 }

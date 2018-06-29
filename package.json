@@ -1,0 +1,22 @@
+{
+  "name": "webgui",
+  "version": "1.0.0",
+  "description": "the web gui exploration project",
+  "main": "entry.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sbohmann/WebGUI.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sbohmann/WebGUI/issues"
+  },
+  "homepage": "https://github.com/sbohmann/WebGUI#readme",
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  }
+}

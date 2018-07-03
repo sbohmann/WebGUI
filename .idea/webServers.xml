@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="d97131fa-a101-4a49-a40d-d3dc3fe0aebb" name="designer on vim.local" url="http://vim.local">
+        <fileTransfer host="vim.local" port="22" rootFolder="/home/seb/web/webgui" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

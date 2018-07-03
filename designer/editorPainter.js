@@ -12,8 +12,13 @@ class EditorPainter {
     }
     
     _paint() {
+        this._clearBackground()
         this._paintBorder()
         this._paintRects()
+    }
+    
+    _clearBackground() {
+        this._g.clearRect(0, 0, this._width, this._height);
     }
     
     _paintBorder() {

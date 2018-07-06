@@ -44,7 +44,7 @@ class EditorPainter {
     
     _paintRects() {
         this._setRectStyle()
-        this._rects.forEach(rect => {
+        this._forEachRectReverse(rect => {
             this._paintRect(rect)
         })
     }
@@ -53,6 +53,12 @@ class EditorPainter {
         this._g.fillStyle = '#fff8f8'
         this._g.strokeStyle = 'black'
         this._g.lineWidth = 5
+    }
+    
+    _forEachRectReverse(func) {
+        for (let index = this._rects.length - 1; index >= 0; --index) {
+            func(this._rects[index])
+        }
     }
     
     _paintRect(rect) {

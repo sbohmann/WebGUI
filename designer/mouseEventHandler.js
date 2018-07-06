@@ -1,6 +1,6 @@
 class MouseEventHandler {
-    constructor(rects, canvas, repaintCanvas) {
-        this._rects = rects
+    constructor(getRects, canvas, repaintCanvas) {
+        this._getRects = getRects
         this._canvas = canvas
         this._repaintCanvas = repaintCanvas
         
@@ -19,7 +19,6 @@ class MouseEventHandler {
     }
     
     _mouseDown(event) {
-        console.log(event)
         this._lastPosition = this._getPosition(event)
     }
     
@@ -56,11 +55,9 @@ class MouseEventHandler {
     
     moveRects(from, to) {
         let changed = false
-        for (let rect of this._rects) {
+        for (let rect of this._getRects()) {
             if (rect.contains(from.x, from.y)) {
-                console.log(rect)
                 rect.moveBy(to.x - from.x, to.y - from.y)
-                console.log(rect)
                 changed = true
             }
         }

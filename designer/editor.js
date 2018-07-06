@@ -1,12 +1,21 @@
+
 class Editor {
     constructor(rects) {
         this._rects = rects
         this._createView()
-        this._createMOuseHandler()
+        this._createMouseHandler()
     }
     
     get mainElement() {
         return this._mainElement
+    }
+    
+    set onInitialization(callbackFunction) {
+        this._onInitialization = callbackFunction
+    }
+    
+    set rects(rects) {
+        this._rects = rects
     }
     
     _createView() {
@@ -19,7 +28,6 @@ class Editor {
         this._styleCanvas()
         this._mainElement.appendChild(this._canvas)
         window.onresize = () => {
-            console.log('onresize')
             this._resizeCanvas()
         }
         setTimeout(() => this._resizeCanvas(), 0)
@@ -37,10 +45,20 @@ class Editor {
     }
     
     _resizeCanvas() {
+        this._setCanvasSize()
+        this._callInitializationHandler()
+        this._paintCanvas()
+    }
+    
+    _setCanvasSize() {
         this._canvas.width = this._canvas.clientWidth
         this._canvas.height = this._canvas.clientHeight
-        console.log(this._canvas.width + ' / ' + this._canvas.height)
-        this._paintCanvas()
+    }
+    
+    _callInitializationHandler() {
+        if (this._onInitialization !== undefined) {
+            this._onInitialization(this._canvas.width, this._canvas.height)
+        }
     }
     
     _paintCanvas() {
@@ -48,9 +66,9 @@ class Editor {
         new EditorPainter(this._rects, this._canvas.width, this._canvas.height, graphicsContext).run()
     }
     
-    _createMOuseHandler() {
-        this._mouseEventHandler = new MouseEventHandler(
-            this._rects,
+    _createMouseHandler() {
+        new MouseEventHandler(
+            () => this._rects,
             this._canvas,
             () => this._paintCanvas())
             .connect()

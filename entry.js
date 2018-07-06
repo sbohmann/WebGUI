@@ -1,2 +1,2 @@
 
-console.log("rntry weas called")
+console.log("entry weas called")

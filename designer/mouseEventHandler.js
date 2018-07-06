@@ -62,6 +62,7 @@ class MouseEventHandler {
             this._lastPosition = to
             this._drag(from, to)
         }
+        event.preventDefault()
     }
     
     _mouseLeave() {

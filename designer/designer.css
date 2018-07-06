@@ -4,19 +4,25 @@ body {
 }
 
 #editor {
-    margin: 0;
+    padding: 0;
     position: absolute;
     left: 7px;
     top: 7px;
-    right: 247px;
+    right: 434px;
     bottom: 7px;
     background: white;
     border: solid 1px #963;
-    height: auto;
 }
 
 #sidebar {
+    margin: 0;
     position: absolute;
+    float: right;
+    top: 7px;
     right: 7px;
-    width: 240px;
+    bottom: 7px;
+    width: 420px;
+    background: white;
+    border: solid 1px #963;
 }
+

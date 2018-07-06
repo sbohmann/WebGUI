@@ -11,7 +11,7 @@ class Designer {
         this._editor = new Editor()
         let editorDiv = this._editor.mainElement
         document.body.appendChild(editorDiv)
-        editorDiv.id = '_editor'
+        editorDiv.id = 'editor'
         this._editor.onInitialization = (canvasWidth, canvasHeight) => {
             this._editor.rects = this._createDummyRects(canvasWidth, canvasHeight)
         }

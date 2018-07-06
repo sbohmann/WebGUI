@@ -1,7 +1,7 @@
 
 class Editor {
     constructor(rects) {
-        this._rects = rects
+        this._rects = []
         this._createView()
         this._createMouseHandler()
     }

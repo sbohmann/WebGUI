@@ -15,6 +15,12 @@ class Range {
             yield value;
         }
     }
+    
+    forEach(func) {
+        for (let value = this._inclusiveMinimum; value < this._exclusiveMaximum; ++value) {
+            func(value)
+        }
+    }
 }
 
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {

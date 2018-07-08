@@ -37,9 +37,6 @@ class Editor {
         let style = this._canvas.style
         style.backgroundColor = '#def'
         style.position = 'absolute'
-        style.display = 'block'
-        style.left = '0'
-        style.top = '0'
         style.width = '100%'
         style.height = '100%'
     }

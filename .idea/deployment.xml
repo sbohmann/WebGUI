@@ -12,6 +12,7 @@
             <excludedPath local="true" path="$PROJECT_DIR$/test" />
             <excludedPath local="true" path="$PROJECT_DIR$/entry.js" />
             <excludedPath local="true" path="$PROJECT_DIR$/package.json" />
+            <excludedPath local="true" path="$PROJECT_DIR$/node_modules" />
           </excludedPaths>
         </serverdata>
       </paths>

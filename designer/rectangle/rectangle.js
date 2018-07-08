@@ -24,4 +24,8 @@ class Rectangle {
         this.x += deltaX
         this.y += deltaY
     }
+    
+    paint(context) {
+        new RectanglePainter(context, this).run()
+    }
 }

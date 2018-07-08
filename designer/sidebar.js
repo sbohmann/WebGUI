@@ -4,24 +4,28 @@ class Sidebar {
         this.mainElement = document.createElement('div')
         this._createAddButton()
         this._createRemoveButton();
+        
+        this._addHandler = null
+    }
+    
+    set addHandler(value) {
+        this._addHandler = value
     }
     
     _createAddButton() {
         let button = this._createButton("Add Rectangle")
-        button.onclick = () => alert("add button clicked")
-        this.mainElement.appendChild(button)
+        button.onclick = () => this._addHandler && this._addHandler()
     }
     
     _createRemoveButton() {
-        let button = this._createButton("Remove Rectangle")
-        button.onclick = () => alert("remove button clicked")
-        this.mainElement.appendChild(button)
+        this._createButton("Remove Rectangle")
     }
     
     _createButton(text) {
         let button = document.createElement('button')
         this._styleButton(button)
         button.textContent = text
+        this.mainElement.appendChild(button)
         return button
     }
     

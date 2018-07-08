@@ -43,37 +43,14 @@ class EditorPainter {
     }
     
     _paintRects() {
-        this._setRectStyle()
         this._forEachRectReverse(rect => {
-            this._paintRect(rect)
+            rect.paint(this._g)
         })
-    }
-    
-    _setRectStyle() {
-        this._g.fillStyle = '#fff8f8'
-        this._g.strokeStyle = 'black'
-        this._g.lineWidth = 5
     }
     
     _forEachRectReverse(func) {
         for (let index = this._rects.length - 1; index >= 0; --index) {
             func(this._rects[index])
         }
-    }
-    
-    _paintRect(rect) {
-        this._g.beginPath()
-        this._createRectPath(rect)
-        this._g.fill()
-        this._g.stroke()
-    }
-    
-    _createRectPath(rect) {
-        this._g.moveTo(rect.x, rect.y)
-        this._g.lineTo(rect.x + rect.width, rect.y)
-        this._g.lineTo(rect.x + rect.width, rect.y + rect.height)
-        this._g.lineTo(rect.x, rect.y + rect.height)
-        this._g.lineTo(rect.x, rect.y)
-        this._g.closePath()
     }
 }

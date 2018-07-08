@@ -1,6 +1,6 @@
 
 class Editor {
-    constructor(rects) {
+    constructor() {
         this._rects = []
         this._createView()
         this._createMouseHandler()
@@ -10,12 +10,17 @@ class Editor {
         return this._mainElement
     }
     
-    set onInitialization(callbackFunction) {
-        this._onInitialization = callbackFunction
+    get width() {
+        return this._canvas.width
     }
     
-    set rects(rects) {
-        this._rects = rects
+    get height() {
+        return this._canvas.height
+    }
+    
+    addRectangle(rectangle) {
+        this._rects.splice(0, 0, rectangle)
+        this._paintCanvas()
     }
     
     _createView() {

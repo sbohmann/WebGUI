@@ -5,8 +5,9 @@ class MouseEventHandler {
         this._canvas = canvas
         this._repaintCanvas = repaintCanvas
         
-        this._lastPosition = null
+        this._startPosition = null
         this._currentRect = null
+        this._currrentRectStartPosition = null
     }
     
     connect() {
@@ -21,13 +22,14 @@ class MouseEventHandler {
     }
     
     _mouseDown(event) {
-        this._lastPosition = this._getPosition(event)
+        this._startPosition = this._getPosition(event)
         this._currentRect = null
         let rects = this._getRects()
         for (let index = 0; index < rects.length; ++index) {
             let rect = rects[index]
-            if (rect.contains(this._lastPosition.x, this._lastPosition.y)) {
+            if (rect.contains(this._startPosition.x, this._startPosition.y)) {
                 this._currentRect = rect
+                this._currrentRectStartPosition = rect.position
                 this.moveRectToFront(rects, index)
                 return
             }
@@ -51,23 +53,23 @@ class MouseEventHandler {
     }
     
     _mouseUp() {
-        this._lastPosition = null
+        this._startPosition = null
         this._currentRect = null
+        this._currrentRectStartPosition = null
     }
     
     _mouseMove(event) {
-        if (this._lastPosition != null) {
-            let from = this._lastPosition
+        if (this._startPosition != null) {
             let to = this._getPosition(event)
-            this._lastPosition = to
-            this._drag(from, to)
+            this._dragCurrentRectTo(from, to)
         }
         event.preventDefault()
     }
     
     _mouseLeave() {
-        this._lastPosition = null
+        this._startPosition = null
         this._currentRect = null
+        this._currrentRectStartPosition = null
     }
     
     _getPosition(event) {
@@ -77,17 +79,17 @@ class MouseEventHandler {
         };
     }
     
-    _drag(from, to) {
-        let changed = this._moveCurrentRect(from, to)
+    _dragCurrentRectTo(position) {
+        let changed = this._moveCurrentRectTo(position)
         if (changed) {
             this._repaintCanvas()
         }
     }
     
-    _moveCurrentRect(from, to) {
+    _moveCurrentRectTo(position) {
         let changed = false
         if (this._currentRect != null) {
-            this._currentRect.moveBy(to.x - from.x, to.y - from.y)
+            this._currentRect.moveTo(position)
             changed = true
         }
         return changed

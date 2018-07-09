@@ -7,6 +7,13 @@ class Rectangle {
         this.width = width
         this.height = height
     }
+
+    get position() {
+        return {
+            x: this.x,
+            y: this.y
+        }
+    }
     
     contains(x, y) {
         return this.xInRange(x) && this.yInRange(y)
@@ -20,9 +27,9 @@ class Rectangle {
         return y >= this.y && y < this.y + this.height
     }
     
-    moveBy(deltaX, deltaY) {
-        this.x += deltaX
-        this.y += deltaY
+    moveTo(position) {
+        this.x = position.x
+        this.y = position.y
     }
     
     paint(context) {

@@ -1,4 +1,5 @@
-util = require('util')
+const util = require('util')
+const {d, f} = require('./common/formatting')
 
 const interestRateInPercent = 7.0
 const interestRate = interestRateInPercent / 100.0

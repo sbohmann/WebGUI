@@ -11,7 +11,7 @@ class ContactList {
 
     _createMainElement() {
         this._mainElement = document.createElement('table')
-        this._mainElement.style.backgroundColor = 'abc'
+        this._mainElement.style.backgroundColor = '#def'
         this._addAddressLines()
     }
 

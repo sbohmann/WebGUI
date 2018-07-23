@@ -3,7 +3,7 @@ window.onload = () => new ContactsView().setup()
 
 class ContactsView {
     setup() {
-        this._contacts = new DummyContacts(10).create()
+        this._contacts = new DummyContacts(10).value
         this._createSearchBar()
         this._createList()
     }

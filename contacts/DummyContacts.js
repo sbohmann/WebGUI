@@ -5,19 +5,23 @@ class DummyContacts {
         this._createValue()
     }
 
+    get value() {
+        return this._value
+    }
+
     _createValue() {
-        this.value = []
+        this._value = []
         this._addContacts()
     }
 
     _addContacts() {
-        new Range(this._size).forEach(() => {
+        Range.to(this._size).forEach(() => {
             this._addContract()
         })
     }
 
     _addContract() {
-        this.value.push(this._createContact())
+        this._value.push(this._createContact())
     }
 
     _createContact() {

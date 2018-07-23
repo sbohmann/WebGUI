@@ -1,14 +1,34 @@
 
 class ContactList {
-    constructor() {
-        this._createMainElement()
-    }
-
-    _createMainElement() {
-        this._mainElement = document.createTextNode('Contact List')
+    constructor(contacts) {
+        this._contacts = contacts
+        this._createMainElement(contacts)
     }
 
     get mainElement() {
         return this._mainElement
+    }
+
+    _createMainElement() {
+        this._mainElement = document.createElement('table')
+        this._mainElement.style.backgroundColor = 'abc'
+        this._addAddressLines()
+    }
+
+    _addAddressLines() {
+        for (let contact of this._contacts) {
+            this._addAddressLine(contact)
+        }
+    }
+
+    _addAddressLine(contact) {
+        let line = document.createElement('tr')
+        let firtNameSpan = document.createElement('td')
+        firtNameSpan.textContent = contact.firstName
+        line.appendChild(firtNameSpan)
+        let lastNameSpan = document.createElement('td')
+        lastNameSpan.textContent = contact.lastName
+        line.appendChild(lastNameSpan)
+        this._mainElement.appendChild(line)
     }
 }

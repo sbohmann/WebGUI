@@ -1,5 +1,5 @@
 
-class ContactList {
+class ContactListView {
     constructor(contacts) {
         this._contacts = contacts
         this._createMainElement(contacts)
@@ -9,19 +9,24 @@ class ContactList {
         return this._mainElement
     }
 
+    refresh() {
+        this._removeAllRows()
+        this._addRows()
+    }
+
     _createMainElement() {
         this._mainElement = document.createElement('table')
         this._mainElement.style.backgroundColor = '#def'
-        this._addAddressLines()
+        this._addRows()
     }
 
-    _addAddressLines() {
+    _addRows() {
         for (let contact of this._contacts) {
-            this._addAddressLine(contact)
+            this._addRow(contact)
         }
     }
 
-    _addAddressLine(contact) {
+    _addRow(contact) {
         let line = document.createElement('tr')
         let firtNameSpan = document.createElement('td')
         firtNameSpan.textContent = contact.firstName
@@ -30,5 +35,11 @@ class ContactList {
         lastNameSpan.textContent = contact.lastName
         line.appendChild(lastNameSpan)
         this._mainElement.appendChild(line)
+    }
+
+    _removeAllRows() {
+        while (this._mainElement.firstChild != null) {
+            this._mainElement.removeChild(this._mainElement.firstChild)
+        }
     }
 }

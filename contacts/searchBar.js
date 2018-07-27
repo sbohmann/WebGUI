@@ -6,7 +6,6 @@ class SearchBar {
         this._createMainElement()
         this._createLabel()
         this._createTextInput()
-        this._createSearchButton()
     }
 
     get mainElement() {
@@ -31,13 +30,7 @@ class SearchBar {
         input.type = 'text'
         this._mainElement.appendChild(input)
         this._textField = input
-    }
-
-    _createSearchButton() {
-        let button = document.createElement('button')
-        button.appendChild(document.createTextNode('Apply'))
-        this._mainElement.appendChild(button)
-        button.onclick = () => this._search()
+        input.oninput = () => this._search()
     }
 
     _search() {

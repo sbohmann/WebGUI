@@ -16,18 +16,23 @@ class ContactListView {
 
     _createMainElement() {
         this._mainElement = document.createElement('table')
-        this._mainElement.style.backgroundColor = '#def'
+        this._mainElement.classList.add('contactsListView')
         this._addRows()
     }
 
     _addRows() {
+        let lines = 0
         for (let contact of this._contacts) {
             this._addRow(contact)
+            if (++lines === 100) {
+                break
+            }
         }
     }
 
     _addRow(contact) {
         let line = document.createElement('tr')
+        line.classList.add('contactLine')
         let firtNameSpan = document.createElement('td')
         firtNameSpan.textContent = contact.firstName
         line.appendChild(firtNameSpan)

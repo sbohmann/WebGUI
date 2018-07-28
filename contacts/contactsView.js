@@ -4,19 +4,26 @@ window.onload = () => new ContactsView().setup()
 class ContactsView {
     setup() {
         this._contacts = new Contacts()
+        this._createMainElement()
         this._createSearchBar()
         this._createList()
     }
 
+    _createMainElement() {
+        this._mainElement = document.createElement('div')
+        this._mainElement.classList.add('contactsView')
+        document.body.appendChild(this._mainElement)
+    }
+
     _createSearchBar() {
         this._searchBar = new SearchBar()
-        document.body.appendChild(this._searchBar.mainElement)
+        this._mainElement.appendChild(this._searchBar.mainElement)
         this._searchBar.textChanged = text => this._textChanged(text)
     }
 
     _createList() {
         this._list = new ContactListView(this._contacts)
-        document.body.appendChild(this._list.mainElement)
+        this._mainElement.appendChild(this._list.mainElement)
     }
 
     _textChanged(text) {

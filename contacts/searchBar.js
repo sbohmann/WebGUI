@@ -4,7 +4,6 @@ class SearchBar {
         this._textChanged = null
 
         this._createMainElement()
-        this._createLabel()
         this._createTextInput()
     }
 
@@ -18,11 +17,7 @@ class SearchBar {
 
     _createMainElement() {
         this._mainElement = document.createElement('div')
-    }
-
-    _createLabel() {
-        let label = document.createTextNode('Filter')
-        this._mainElement.appendChild(label)
+        this._mainElement.classList.add('searchBar')
     }
 
     _createTextInput() {

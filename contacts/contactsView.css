@@ -1,0 +1,30 @@
+
+body {
+    font-family: sans-serif;
+}
+
+.contactsView {
+    margin: auto;
+    background-color: antiquewhite;
+    padding: 10px;
+    width: 240px;
+}
+
+.searchBar {
+    margin: 0;
+    padding: 0;
+}
+
+.searchBar input {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.contactsListView {
+    width: 240px;
+}
+
+.contactLine {
+    width: 480px;
+}

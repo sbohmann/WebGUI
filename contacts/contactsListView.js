@@ -1,36 +1,50 @@
 
 class ContactsListView {
-    constructor() {
-        this._contacts = new Contacts()
-        this._createMainElement()
-        this._createSearchBar()
-        this._createList()
+    constructor(contacts) {
+        this._contacts = contacts
+        this._createMainElement(contacts)
+    }
+
+    get mainElement() {
+        return this._mainElement
+    }
+
+    refresh() {
+        this._removeAllRows()
+        this._addRows()
     }
 
     _createMainElement() {
-        this._mainElement = document.createElement('div')
-        this._mainElement.classList.add('contactsView')
-        document.body.appendChild(this._mainElement)
+        this._mainElement = document.createElement('table')
+        this._mainElement.classList.add('contactsListView')
+        this._addRows()
     }
 
-    _createSearchBar() {
-        this._searchBar = new SearchBar()
-        this._mainElement.appendChild(this._searchBar.mainElement)
-        this._searchBar.textChanged = text => this._textChanged(text)
+    _addRows() {
+        let lines = 0
+        for (let contact of this._contacts) {
+            this._addRow(contact)
+            if (++lines === 100) {
+                break
+            }
+        }
     }
 
-    _createList() {
-        this._list = new ContactListView(this._contacts)
-        this._mainElement.appendChild(this._list.mainElement)
+    _addRow(contact) {
+        let line = document.createElement('tr')
+        line.classList.add('contactLine')
+        let firtNameSpan = document.createElement('td')
+        firtNameSpan.textContent = contact.firstName
+        line.appendChild(firtNameSpan)
+        let lastNameSpan = document.createElement('td')
+        lastNameSpan.textContent = contact.lastName
+        line.appendChild(lastNameSpan)
+        this._mainElement.appendChild(line)
     }
 
-    _textChanged(text) {
-        this._contacts.filter = this._createFilterFromQuery(text)
-        this._list.refresh()
-    }
-
-    _createFilterFromQuery(text) {
-        let filter = new QueryFilter(text)
-        return contact => filter.matches(contact)
+    _removeAllRows() {
+        while (this._mainElement.firstChild != null) {
+            this._mainElement.removeChild(this._mainElement.firstChild)
+        }
     }
 }

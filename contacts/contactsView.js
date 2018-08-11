@@ -5,8 +5,8 @@ class ContactsView {
     setup() {
         this._contacts = new Contacts()
         this._createMainElement()
-        this._createSearchBar()
-        this._createList()
+        this._createListView()
+        this._createDetailsView()
     }
 
     _createMainElement() {
@@ -15,24 +15,19 @@ class ContactsView {
         document.body.appendChild(this._mainElement)
     }
 
-    _createSearchBar() {
-        this._searchBar = new SearchBar()
-        this._mainElement.appendChild(this._searchBar.mainElement)
-        this._searchBar.textChanged = text => this._textChanged(text)
+    _createListView() {
+        this._listView = new ContactsListView()
+        this._listView.classList.add('contactsListView')
+        this._mainElement.appendChild(this._listView.mainElement)
+        this._listView.selectionChanged = contact -> this._showContact(contact)
     }
 
-    _createList() {
-        this._list = new ContactListView(this._contacts)
-        this._mainElement.appendChild(this._list.mainElement)
+    _createDetailsView() {
+        this._detailsView = new ContactsDetailsView(this._contacts)
+        this._mainElement.appendChild(this._detailsView.mainElement)
     }
 
-    _textChanged(text) {
-        this._contacts.filter = this._createFilterFromQuery(text)
-        this._list.refresh()
-    }
-
-    _createFilterFromQuery(text) {
-        let filter = new QueryFilter(text)
-        return contact => filter.matches(contact)
+    _showContact(contact) {
+        this._detailsView.setContact(contact)
     }
 }

@@ -1,7 +1,7 @@
 
 class Contacts {
     constructor() {
-        this._data = new DummyContacts(1000000).value
+        this._data = new DummyContacts(100000).value
         this._filter = null
     }
 

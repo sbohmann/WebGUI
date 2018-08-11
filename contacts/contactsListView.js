@@ -2,11 +2,16 @@
 class ContactsListView {
     constructor(contacts) {
         this._contacts = contacts
+        this._selectionChanged = null
         this._createMainElement(contacts)
     }
 
     get mainElement() {
         return this._mainElement
+    }
+
+    set selectionChanged(value) {
+        this._selectionChanged = value
     }
 
     refresh() {
@@ -39,12 +44,19 @@ class ContactsListView {
         let lastNameSpan = document.createElement('td')
         lastNameSpan.textContent = contact.lastName
         line.appendChild(lastNameSpan)
+        line.onclick = () => this._contactSelected(contact)
         this._mainElement.appendChild(line)
     }
 
     _removeAllRows() {
         while (this._mainElement.firstChild != null) {
             this._mainElement.removeChild(this._mainElement.firstChild)
+        }
+    }
+
+    _contactSelected(contact) {
+        if (this._selectionChanged != null) {
+            this._selectionChanged(contact)
         }
     }
 }

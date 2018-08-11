@@ -24,6 +24,15 @@ body {
     width: 240px;
 }
 
+.contactsDetailsView {
+    position: absolute;
+    left: 280px;
+    padding: 10px;
+    top: 5px;
+    width: 480px;
+    height: 600px;
+}
+
 .contactLine {
     width: 480px;
 }

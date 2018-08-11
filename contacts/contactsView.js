@@ -16,9 +16,9 @@ class ContactsView {
     }
 
     _createListView() {
-        this._listView = new ContactsMasterView()
-        this._mainElement.appendChild(this._listView.mainElement)
-        this._listView.selectionChanged = contact => this._showContact(contact)
+        this._masterView = new ContactsMasterView()
+        this._mainElement.appendChild(this._masterView.mainElement)
+        this._masterView.selectionChanged = contact => this._showContact(contact)
     }
 
     _createDetailsView() {

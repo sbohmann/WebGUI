@@ -7,6 +7,14 @@ class ContactsMasterView {
         this._createList()
     }
 
+    get mainElement() {
+        return this._mainElement
+    }
+
+    set selectionChanged(value) {
+        this._listView.selectionChanged = value
+    }
+
     _createMainElement() {
         this._mainElement = document.createElement('div')
         this._mainElement.classList.add('contactsMasterView')
@@ -20,13 +28,13 @@ class ContactsMasterView {
     }
 
     _createList() {
-        this._list = new ContactsListView(this._contacts)
-        this._mainElement.appendChild(this._list.mainElement)
+        this._listView = new ContactsListView(this._contacts)
+        this._mainElement.appendChild(this._listView.mainElement)
     }
 
     _textChanged(text) {
         this._contacts.filter = this._createFilterFromQuery(text)
-        this._list.refresh()
+        this._listView.refresh()
     }
 
     _createFilterFromQuery(text) {

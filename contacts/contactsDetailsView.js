@@ -6,6 +6,11 @@ class ContactsDetailsView {
         this._contact = null
         this._createMainElement()
         this._createForm()
+        this._updateUi()
+    }
+
+    get mainElement() {
+        return this._mainElement
     }
 
     setContact(contact) {
@@ -27,11 +32,25 @@ class ContactsDetailsView {
     _createLabel() {
         let result = document.createElement('div')
         result.classList.add('formLabel')
+        this._mainElement.appendChild(result);
         return result
     }
 
     _updateUi() {
-        this._firstNameLabel.textContent = 'Firstname'
-        this._firstNameLabel.textContent = 'Lastname'
+        if (this._contact != null) {
+            this._setFormFields()
+        } else {
+            this._clearForm()
+        }
+    }
+
+    _setFormFields() {
+        this._firstNameLabel.textContent = this._contact.firstName
+        this._lastNameLabel.textContent = this._contact.lastName
+    }
+
+    _clearForm() {
+        this._firstNameLabel.textContent = ''
+        this._lastNameLabel.textContent = ''
     }
 }

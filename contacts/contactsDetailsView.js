@@ -36,6 +36,7 @@ class ContactsDetailsView {
         this._mainElement.appendChild(label)
         let result = document.createElement('div')
         result.classList.add('formValue')
+        result.contentEditable = 'true'
         this._mainElement.appendChild(result);
         return result
     }

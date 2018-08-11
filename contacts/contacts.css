@@ -36,3 +36,19 @@ body {
 .contactLine {
     width: 480px;
 }
+
+.formLabel {
+    font-size: smaller;
+    height: 1em;
+}
+
+.formValue {
+    font-size: larger;
+    margin-bottom: 10px;
+    height: 1em;
+}
+
+.selected {
+    background-color: darkblue;
+    color: white;
+}

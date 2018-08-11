@@ -25,13 +25,17 @@ class ContactsDetailsView {
     }
 
     _createForm() {
-        this._firstNameLabel = this._createLabel()
-        this._lastNameLabel = this._createLabel()
+        this._firstNameLabel = this._createTextInput("First Name")
+        this._lastNameLabel = this._createTextInput("Last Name")
     }
 
-    _createLabel() {
+    _createTextInput(labelText) {
+        let label = document.createElement('div')
+        label.classList.add('formLabel')
+        label.textContent = labelText
+        this._mainElement.appendChild(label)
         let result = document.createElement('div')
-        result.classList.add('formLabel')
+        result.classList.add('formValue')
         this._mainElement.appendChild(result);
         return result
     }

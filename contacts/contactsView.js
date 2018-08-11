@@ -1,4 +1,6 @@
 
+const selectedClass = 'selected'
+
 window.onload = () => new ContactsView().setup()
 
 class ContactsView {

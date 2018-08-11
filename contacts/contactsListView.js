@@ -4,6 +4,7 @@ class ContactsListView {
         this._contacts = contacts
         this._selectionChanged = null
         this._createMainElement(contacts)
+        this._selectedLine = null
     }
 
     get mainElement() {
@@ -44,17 +45,45 @@ class ContactsListView {
         let lastNameSpan = document.createElement('td')
         lastNameSpan.textContent = contact.lastName
         line.appendChild(lastNameSpan)
-        line.onclick = () => this._contactSelected(contact)
+        line.onclick = () => this._contactSelected(line, contact)
         this._mainElement.appendChild(line)
     }
 
     _removeAllRows() {
+        this._selectedLine = null
         while (this._mainElement.firstChild != null) {
             this._mainElement.removeChild(this._mainElement.firstChild)
         }
     }
 
-    _contactSelected(contact) {
+    _contactSelected(line, contact) {
+        this._markSelectedLine(line)
+        this._callSelectionCallback(contact)
+    }
+
+    _markSelectedLine(line) {
+        if (line !== this._selectedLine) {
+            this._adjustLineSelectionMark(line)
+        }
+    }
+
+    _adjustLineSelectionMark(line) {
+        this._resetPreviouslySelectedLine()
+        this._setNewSelectedLine(line)
+    }
+
+    _resetPreviouslySelectedLine() {
+        if (this._selectedLine != null) {
+            this._selectedLine.classList.remove(selectedClass)
+        }
+    }
+
+    _setNewSelectedLine(line) {
+        line.classList.add(selectedClass)
+        this._selectedLine = line
+    }
+
+    _callSelectionCallback(contact) {
         if (this._selectionChanged != null) {
             this._selectionChanged(contact)
         }

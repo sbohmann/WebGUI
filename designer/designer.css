@@ -1,6 +1,13 @@
+
+html {
+    overflow-x: hidden;
+}
+
 body {
     background: #ffc;
     padding: 0;
+    overflow-x: hidden;
+    position: relative;
 }
 
 #editor {

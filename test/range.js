@@ -1,12 +1,11 @@
 
-Range = require('../common/range.js')
-
-let expect = require('chai').expect
+const expect = require('chai').expect
+const Range = require('../common/range')
 
 function testSimpleRange(maximum) {
     let value = 0
     for (let n of Range.to(maximum)) {
-        expect(n).to.be.equal(value)
+        expect(n).to.equal(value)
         expect(n < maximum).to.be.true
         ++value
     }
@@ -15,7 +14,7 @@ function testSimpleRange(maximum) {
 function testComplexRange(minimum, maximum) {
     let value = minimum
     for (let n of new Range(minimum, maximum)) {
-        expect(n).to.be.equal(value)
+        expect(n).to.equal(value)
         expect(n < maximum).to.be.true
         expect(minimum < maximum).to.be.true
         ++value

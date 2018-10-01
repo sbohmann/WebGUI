@@ -23,11 +23,15 @@ class Designer {
     }
     
     _addRectangle() {
+        this._editor.addRectangle(
+            this._cretaeRandomRectangle())
+    }
+
+    _cretaeRandomRectangle() {
         let width = 240
         let height = 280
         let x = (this._editor.width - width) / 2
         let y = (this._editor.height - height) / 2
-        let rectangle = new Rectangle(x, y, width, height);
-        this._editor.addRectangle(rectangle)
+        return new Rectangle(x, y, width, height)
     }
 }

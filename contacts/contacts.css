@@ -1,0 +1,54 @@
+
+body {
+    font-family: sans-serif;
+}
+
+.contactsView {
+    background-color: antiquewhite;
+    padding: 10px;
+    width: 240px;
+}
+
+.searchBar {
+    margin: 0;
+    padding: 0;
+}
+
+.searchBar input {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.contactsListView {
+    width: 240px;
+}
+
+.contactsDetailsView {
+    position: absolute;
+    left: 280px;
+    padding: 10px;
+    top: 5px;
+    width: 480px;
+    height: 600px;
+}
+
+.contactLine {
+    width: 480px;
+}
+
+.formLabel {
+    font-size: smaller;
+    height: 1em;
+}
+
+.formValue {
+    font-size: larger;
+    margin-bottom: 10px;
+    height: 1em;
+}
+
+.selected {
+    background-color: darkblue;
+    color: white;
+}

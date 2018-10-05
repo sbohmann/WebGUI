@@ -1,39 +1,62 @@
-window.onload = setup
+window.onload = () => new Page().setup()
 
-function setup() {
-    const statusParagraph = document.getElementById("statusView")
-    const uploadInput = document.getElementById("imageUpload")
+class Page {
+    setup() {
+        this.statusParagraph = document.getElementById("statusView")
+        this.uploadInput = document.getElementById("imageUpload")
+        this.canvas = document.getElementById("canvas")
 
-    statusParagraph.textContent =
-        window.File && window.FileReader && window.FileList && window.Blob
-            ? 'File APIs supported by browser'
-            : 'File APIs not fully supported by browser'
+        this.statusParagraph.textContent =
+            window.File && window.FileReader && window.FileList && window.Blob
+                ? 'File APIs supported by browser'
+                : 'File APIs not fully supported by browser'
 
-    function fileSelected(event) {
-        const files = event.target.files
+        this.uploadInput.addEventListener(
+            'change',
+            event => this.fileSelected(event),
+            false)
+    }
 
-        // files is a FileList of File objects. List some properties.
-        const output = []
-        let firstFile = null
-        for (file of files) {
-            output.push(file.name + ' { type: ' + (file.type || 'n/a') +
-                ', size: ' + file.size + ' bytes' +
-                ', last modified: ' + (file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() : 'n/a') +
-                ' }')
-            if (firstFile == null) {
-                firstFile = file
-            }
-        }
-        console.log(output.join('\n'))
+    fileSelected(event) {
+        this.showFirstFile(event.target.files)
+    }
 
-        if (firstFile != null) {
-            const reader = new FileReader()
-            reader.onload = data => {
-                console.log(data)
-            }
-            reader.readAsArrayBuffer(file)
+    showFirstFile(files) {
+        if (files.length > 0) {
+            this.showFile(files[0]);
         }
     }
 
-    uploadInput.addEventListener('change', fileSelected, false)
+    showFile(file) {
+        const reader = new FileReader()
+        reader.onload = event => this.paintImage(event.target.result)
+        reader.readAsArrayBuffer(file)
+    }
+
+    paintImage(data) {
+        let image = this.createImage(data);
+        image.onload = () => {
+            this.drawImage(image);
+        }
+    }
+
+    createImage(data) {
+        let url = this.createDataUrl(data);
+        let image = new Image()
+        image.src = url
+        return image;
+    }
+
+    createDataUrl(data) {
+        let array = new Uint8Array(data)
+        let blob = new Blob([array])
+        return URL.createObjectURL(blob);
+    }
+
+    drawImage(image) {
+        image
+        this.canvas
+            .getContext("2d")
+            .drawImage(image, 0, 0, 400, 400)
+    }
 }

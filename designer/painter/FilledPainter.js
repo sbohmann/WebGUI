@@ -1,8 +1,9 @@
 class FilledPainter {
-    constructor(canvas, image) {
+    constructor(canvas, image, radius) {
         this._canvas = canvas
         this._context = canvas.getContext('2d')
         this._image = image
+        this._radius = radius;
 
         this._imageRatio = image.width / image.height
         this._canvasRatio = canvas.width / canvas.height
@@ -48,7 +49,7 @@ class FilledPainter {
     }
 
     _blur() {
-        let resultImageData = new FastBlur(this._imageData(), 25).run()
+        let resultImageData = new FastBlur(this._imageData(), this._radius).run()
         this._context.putImageData(resultImageData, 0, 0)
     }
 

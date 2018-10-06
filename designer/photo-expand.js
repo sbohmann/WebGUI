@@ -1,10 +1,11 @@
-const Width = 800
-const Height = 800
-
 window.onload = () => new Page().setup()
 
 class Page {
     setup() {
+        this._width = 800
+        this._height = 800
+        this._radius = 25;
+        
         this._statusParagraph = document.getElementById('statusView')
         this._uploadInput = document.getElementById('imageUpload')
         this._result = document.getElementById('result')
@@ -23,8 +24,8 @@ class Page {
 
     createCanvas() {
         this._canvas = document.createElement('canvas') //document.getElementById('canvas')
-        this._canvas.width = Width
-        this._canvas.height = Height
+        this._canvas.width = this._width
+        this._canvas.height = this._height
     }
 
     fileSelected(event) {
@@ -89,7 +90,7 @@ class Page {
     drawImage() {
         this._statusParagraph.textContent = "Calculating..."
         setTimeout(() => {
-            new FilledPainter(this._canvas, this._image).run()
+            new FilledPainter(this._canvas, this._image, this._radius).run()
             this._result.src = this._canvas.toDataURL("image/png")
             this._statusParagraph.textContent = "Finished. Orientation: " + this._orientation
         }, 0)

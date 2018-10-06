@@ -33,7 +33,8 @@ class Page {
 
     showFirstFile(files) {
         if (files.length > 0) {
-            this.showFile(files[0])
+            let file = files[0]
+            this.showFile(file)
         }
     }
 
@@ -44,17 +45,39 @@ class Page {
     }
 
     paintImage(data) {
-        let image = this.createImage(data)
-        image.onload = () => {
-            this.drawImage(image)
+        let orientation = this.readOrientation(data)
+        this.createImage(data, orientation)
+        this._image.onload = () => {
+            new FixOrientation(this._image, orientation).run(image => {
+                this._image = image
+                this._orientation = orientation
+                this.drawImage()
+            })
+        }
+    }
+
+    readOrientation(data) {
+        try {
+            return this.exifOrientation(data)
+        } catch(error) {
+            console.log(error)
+            return null
+        }
+    }
+
+    exifOrientation(data) {
+        let exif = EXIF.readFromBinaryFile(data)
+        if (typeof exif === 'object' && typeof exif.Orientation !== 'undefined') {
+            return exif.Orientation
+        } else {
+            return null
         }
     }
 
     createImage(data) {
         let url = this.createDataUrl(data)
-        let image = new Image()
-        image.src = url
-        return image
+        this._image = document.createElement('img')
+        this._image.src = url
     }
 
     createDataUrl(data) {
@@ -63,12 +86,12 @@ class Page {
         return URL.createObjectURL(blob)
     }
 
-    drawImage(image) {
+    drawImage() {
         this._statusParagraph.textContent = "Calculating..."
         setTimeout(() => {
-            new FilledPainter(this._canvas, image).run()
+            new FilledPainter(this._canvas, this._image).run()
             this._result.src = this._canvas.toDataURL("image/png")
-            this._statusParagraph.textContent = "Finished."
+            this._statusParagraph.textContent = "Finished. Orientation: " + this._orientation
         }, 0)
     }
 }

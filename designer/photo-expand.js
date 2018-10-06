@@ -2,16 +2,16 @@ window.onload = () => new Page().setup()
 
 class Page {
     setup() {
-        this.statusParagraph = document.getElementById("statusView")
-        this.uploadInput = document.getElementById("imageUpload")
-        this.canvas = document.getElementById("canvas")
+        this._statusParagraph = document.getElementById('statusView')
+        this._uploadInput = document.getElementById('imageUpload')
+        this._canvas = document.getElementById('canvas')
 
-        this.statusParagraph.textContent =
+        this._statusParagraph.textContent =
             window.File && window.FileReader && window.FileList && window.Blob
                 ? 'File APIs supported by browser'
                 : 'File APIs not fully supported by browser'
 
-        this.uploadInput.addEventListener(
+        this._uploadInput.addEventListener(
             'change',
             event => this.fileSelected(event),
             false)
@@ -54,9 +54,11 @@ class Page {
     }
 
     drawImage(image) {
-        image
-        this.canvas
-            .getContext("2d")
-            .drawImage(image, 0, 0, 400, 400)
+        new FilledPainter(this.getContext()).run();
+    }
+
+    getContext() {
+        return this._canvas
+            .getContext('2d');
     }
 }

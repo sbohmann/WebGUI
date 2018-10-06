@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="designer on vim.local">
+  <component name="PublishConfigData" serverName="yeoman юлия">
     <serverData>
       <paths name="designer on vim.local">
         <serverdata>
@@ -14,6 +14,13 @@
             <excludedPath local="true" path="$PROJECT_DIR$/package.json" />
             <excludedPath local="true" path="$PROJECT_DIR$/node_modules" />
           </excludedPaths>
+        </serverdata>
+      </paths>
+      <paths name="yeoman юлия">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/www.yeoman.at/julia" local="$PROJECT_DIR$/designer" web="/" />
+          </mappings>
         </serverdata>
       </paths>
     </serverData>

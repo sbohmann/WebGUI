@@ -1,7 +1,8 @@
 class Blur {
-    constructor(imageData) {
+    constructor(imageData, radius) {
         this._imageData = imageData;
         this._data = imageData.data
+        this._radius = radius
     }
     
     run() {
@@ -15,8 +16,8 @@ class Blur {
 
     _blurPixel(centerX, centerY) {
         let num = 0, r = 0,  g = 0,  b = 0,  a = 0
-        for (let yOffset = -15; yOffset <= 15; ++yOffset) {
-            for (let xOffset = -15; xOffset <= 15; ++xOffset) {
+        for (let yOffset = -this._radius; yOffset <= this._radius; ++yOffset) {
+            for (let xOffset = -this._radius; xOffset <= this._radius; ++xOffset) {
                 let x = centerX + xOffset
                 let y = centerY + yOffset
                 if (this._insideImage(x, y)) {

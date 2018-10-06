@@ -48,7 +48,7 @@ class FilledPainter {
     }
 
     _blur() {
-        let resultImageData = new Blur(this._imageData()).run()
+        let resultImageData = new FastBlur(this._imageData(), 25).run()
         this._context.putImageData(resultImageData, 0, 0)
     }
 

@@ -1,6 +1,7 @@
 class Blur {
     constructor(imageData) {
         this._imageData = imageData;
+        this._data = imageData.data
     }
     
     run() {
@@ -9,6 +10,7 @@ class Blur {
                 this._blurPixel(x, y)
             }
         }
+        return this._imageData
     }
 
     _blurPixel(centerX, centerY) {
@@ -17,41 +19,41 @@ class Blur {
             for (let xOffset = -15; xOffset <= 15; ++xOffset) {
                 let x = centerX + xOffset
                 let y = centerY + yOffset
-                if (this.insideImage(x, y)) {
+                if (this._insideImage(x, y)) {
                     ++num
-                    let index = this.index(x, y)
-                    r += this._imageData.data[index++]
-                    g += this._imageData.data[index++]
-                    b += this._imageData.data[index++]
-                    a += this._imageData.data[index++]
+                    let index = this._index(x, y)
+                    r += this._data[index++]
+                    g += this._data[index++]
+                    b += this._data[index++]
+                    a += this._data[index++]
                 }
             }
         }
-        this.setPixelToAverage(centerX, centerY, num, r, g, b, a);
+        this._setPixelToAverage(centerX, centerY, num, r, g, b, a)
     }
 
-    setPixelToAverage(x, y, num, r, g, b, a) {
+    _setPixelToAverage(x, y, num, r, g, b, a) {
         r /= num
         g /= num
         b /= num
         a /= num
-        this.setPixel(x, y, r, g, b, a)
+        this._setPixel(x, y, r, g, b, a)
     }
 
-    insideImage(x, y) {
+    _insideImage(x, y) {
         return x >= 0 && x < this._imageData.width &&
-            y >= 0 && y < this._imageData.height;
+            y >= 0 && y < this._imageData.height
     }
 
-    setPixel(x, y, r, g, b, a) {
-        let index = this.index(x, y)
-        this._imageData.data[index++] = r
-        this._imageData.data[index++] = g
-        this._imageData.data[index++] = b
-        this._imageData.data[index++] = a
+    _setPixel(x, y, r, g, b, a) {
+        let index = this._index(x, y)
+        this._data[index++] = r
+        this._data[index++] = g
+        this._data[index++] = b
+        this._data[index++] = a
     }
 
-    index(x, y) {
-        return 4 * (y * this._imageData.width + x);
+    _index(x, y) {
+        return 4 * (y * this._imageData.width + x)
     }
 }

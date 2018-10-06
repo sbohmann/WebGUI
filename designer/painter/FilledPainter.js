@@ -2,20 +2,20 @@ class FilledPainter {
     constructor(canvas, image) {
         this._canvas = canvas
         this._context = canvas.getContext('2d')
-        this._image = image;
+        this._image = image
 
         this._imageRatio = image.width / image.height
         this._canvasRatio = canvas.width / canvas.height
     }
     
     run() {
-        this._calculateSizes();
+        this._calculateSizes()
 
-        this._drawScaledImage();
+        this._drawScaledImage()
         
-        this._blur();
+        this._blur()
 
-        this._drawFittedImage();
+        this._drawFittedImage()
     }
 
     _calculateSizes() {
@@ -25,33 +25,31 @@ class FilledPainter {
 
     _calculateScaledSize() {
         if (this._imageRatio > this._canvasRatio) {
-            this._scaledWidth = image.width * this._canvas.height / image.height
+            this._scaledWidth = this._image.width * this._canvas.height / this._image.height
             this._scaledHeight = this._canvas.width
         } else {
             this._scaledWidth = this._canvas.width
-            this._scaledHeight = image.height * this._canvas.width / image.width
+            this._scaledHeight = this._image.height * this._canvas.width / this._image.width
         }
     }
 
     _calculateFittedSize() {
         if (this._imageRatio > this._canvasRatio) {
             this._fittedWidth = this._canvas.width
-            this._fittedHeight = image.height * this._canvas.width / image.width
+            this._fittedHeight = this._image.height * this._canvas.width / this._image.width
         } else {
-            this._fittedWidth = image.width * this._canvas.height / image.height
+            this._fittedWidth = this._image.width * this._canvas.height / this._image.height
             this._fittedHeight = this._canvas.width
         }
     }
 
     _drawScaledImage() {
-        this._context.drawImage(
-            this._image,
-            0, 0,
-            this._scaledWidth, this._scaledHeight)
+        this.drawImage(this._scaledWidth, this._scaledHeight)
     }
-    
+
     _blur() {
-        new Blur(this._imageData()).run()
+        let resultImageData = new Blur(this._imageData()).run()
+        this._context.putImageData(resultImageData, 0, 0)
     }
 
     _imageData() {
@@ -59,9 +57,15 @@ class FilledPainter {
     }
 
     _drawFittedImage() {
+        this.drawImage(this._fittedWidth, this._fittedHeight)
+    }
+
+    drawImage(width, height) {
+        let xOffset = (this._canvas.width - width) / 2
+        let yOffset = (this._canvas.height - height) / 2
         this._context.drawImage(
             this._image,
-            0, 0,
-            this._fittedWidth, this._fittedHeight)
+            xOffset, yOffset,
+            width, height)
     }
 }

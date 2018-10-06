@@ -1,10 +1,14 @@
+const Width = 800
+const Height = 800
+
 window.onload = () => new Page().setup()
 
 class Page {
     setup() {
         this._statusParagraph = document.getElementById('statusView')
         this._uploadInput = document.getElementById('imageUpload')
-        this._canvas = document.getElementById('canvas')
+        this._result = document.getElementById('result')
+        this.createCanvas();
 
         this._statusParagraph.textContent =
             window.File && window.FileReader && window.FileList && window.Blob
@@ -17,13 +21,19 @@ class Page {
             false)
     }
 
+    createCanvas() {
+        this._canvas = document.createElement('canvas') //document.getElementById('canvas')
+        this._canvas.width = Width
+        this._canvas.height = Height
+    }
+
     fileSelected(event) {
         this.showFirstFile(event.target.files)
     }
 
     showFirstFile(files) {
         if (files.length > 0) {
-            this.showFile(files[0]);
+            this.showFile(files[0])
         }
     }
 
@@ -34,31 +44,31 @@ class Page {
     }
 
     paintImage(data) {
-        let image = this.createImage(data);
+        let image = this.createImage(data)
         image.onload = () => {
-            this.drawImage(image);
+            this.drawImage(image)
         }
     }
 
     createImage(data) {
-        let url = this.createDataUrl(data);
+        let url = this.createDataUrl(data)
         let image = new Image()
         image.src = url
-        return image;
+        return image
     }
 
     createDataUrl(data) {
         let array = new Uint8Array(data)
         let blob = new Blob([array])
-        return URL.createObjectURL(blob);
+        return URL.createObjectURL(blob)
     }
 
     drawImage(image) {
-        new FilledPainter(this.getContext()).run();
-    }
-
-    getContext() {
-        return this._canvas
-            .getContext('2d');
+        this._statusParagraph.textContent = "Calculating..."
+        setTimeout(() => {
+            new FilledPainter(this._canvas, image).run()
+            this._result.src = this._canvas.toDataURL("image/png")
+            this._statusParagraph.textContent = "Finished."
+        }, 0)
     }
 }

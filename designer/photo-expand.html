@@ -10,14 +10,15 @@
     <script src="filter/Average.js"></script>
     <script src="exif-js/exif.js"></script>
     <script src="orientation/FixOrientation.js"></script>
+    <script src="colorPicker/ColorPicker.js"></script>
     <script src="photo-expand.js"></script>
     <link rel="stylesheet" href="photo-expand.css">
 </head>
 <body>
     <p id="statusView"></p>
     <p><input type="file" id="imageUpload"></p>
-    <p><label>
-        Background
+    <p>
+        <label for="effect">Background</label>
         <select id="effect" required>
             <option value="none">None</option>
             <option value="5">5 px blur</option>
@@ -25,8 +26,10 @@
             <option value="25" selected>25 px blur</option>
             <option value="max">Maximum blur</option>
         </select>
-    </label></p>
+        <input type="button" id="colorSelectionButton">
+    </p>
     <p><img id="result" width="400" height="400" src=""></p>
     <p>Using <a href="exif-js">exif-js</a></p>
+    <div id="colorPicker"></div>
 </body>
 </html>

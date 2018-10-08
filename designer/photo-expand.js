@@ -11,6 +11,9 @@ class Page {
         this._uploadInput = document.getElementById('imageUpload')
         this._effectInput = document.getElementById('effect')
         this._result = document.getElementById('result')
+        this._colorSelectionButton = document.getElementById('colorSelectionButton')
+        this._colorPickerDiv = document.getElementById('colorPicker')
+        
         this._createCanvas();
         
         this._image = null
@@ -22,7 +25,9 @@ class Page {
 
         this._uploadInput.onchange = event => this._fileSelected(event)
         
-        this._effectInput.onchange = event => this._setEffectFromInput()
+        this._effectInput.onchange = () => this._setEffectFromInput()
+        
+        this._colorSelectionButton.onclick = () => this._showColorPicker()
         
         this._setEffectFromInput()
     }
@@ -123,5 +128,13 @@ class Page {
         if (this._image != null) {
             this._drawImage()
         }
+    }
+    
+    _showColorPicker() {
+        if (this._colorPicker === undefined) {
+            this._colorPicker = new ColorPicker()
+            this._colorPickerDiv.appendChild(this._colorPicker.mainElement)
+        }
+        this._colorPickerDiv.style.display = 'inline'
     }
 }

@@ -18,28 +18,39 @@ class FastBlur {
 
     horizontalBlur(width, height, radius, data) {
         for (let y = 0; y < height; ++y) {
+            let r = 0, g = 0, b = 0
+            let num = 1
+            let end = radius
+            if (width > radius) {
+                num += radius
+            } else {
+                num += width - 1
+                end = width - 1
+            }
+            for (let x = 0; x <= end; ++x) {
+                let index = (y * width + x) << 2
+                r += data[index++]
+                g += data[index++]
+                b += data[index++]
+            }
             for (let xCenter = 0; xCenter < width; ++xCenter) {
-                let num = 1
-                let start = xCenter - radius
-                let end = xCenter + radius
-                if (xCenter >= radius) {
-                    num += radius
-                } else {
-                    num += xCenter
-                    start = 0
-                }
-                if (xCenter < width - radius) {
-                    num += radius
-                } else {
-                    num += width - xCenter - 1
-                    end = width - 1
-                }
-                let r = 0, g = 0, b = 0
-                for (let x = start; x <= end; ++x) {
-                    let index = (y * width + x) << 2
-                    r += data[index++]
-                    g += data[index++]
-                    b += data[index++]
+                if (xCenter > 0) {
+                    if (xCenter - radius <= 0) {
+                        ++num
+                    } else {
+                        let index = (y * width + xCenter - radius - 1) << 2
+                        r -= data[index++]
+                        g -= data[index++]
+                        b -= data[index++]
+                    }
+                    if (xCenter + radius < width) {
+                        let index = (y * width + xCenter + radius) << 2
+                        r += data[index++]
+                        g += data[index++]
+                        b += data[index++]
+                    } else {
+                        --num
+                    }
                 }
                 let index = (y * width + xCenter) << 2
                 data[index++] = r / num
@@ -52,28 +63,39 @@ class FastBlur {
 
     verticalBlur(width, height, radius, data) {
         for (let x = 0; x < width; ++x) {
+            let r = 0, g = 0, b = 0
+            let num = 1
+            let end = radius
+            if (height > radius) {
+                num += radius
+            } else {
+                num += height - 1
+                end = height - 1
+            }
+            for (let y = 0; y <= end; ++y) {
+                let index = (y * width + x) << 2
+                r += data[index++]
+                g += data[index++]
+                b += data[index++]
+            }
             for (let yCenter = 0; yCenter < height; ++yCenter) {
-                let num = 1
-                let start = yCenter - radius
-                let end = yCenter + radius
-                if (yCenter >= radius) {
-                    num += radius
-                } else {
-                    num += yCenter
-                    start = 0
-                }
-                if (yCenter < height - radius) {
-                    num += radius
-                } else {
-                    num += height - yCenter - 1
-                    end = height - 1
-                }
-                let r = 0, g = 0, b = 0
-                for (let y = start; y <= end; ++y) {
-                    let index = (y * width + x) << 2
-                    r += data[index++]
-                    g += data[index++]
-                    b += data[index++]
+                if (yCenter > 0) {
+                    if (yCenter - radius <= 0) {
+                        ++num
+                    } else {
+                        let index = ((yCenter - radius - 1) * width + x) << 2
+                        r -= data[index++]
+                        g -= data[index++]
+                        b -= data[index++]
+                    }
+                    if (yCenter + radius < width) {
+                        let index = ((yCenter + radius) * width + x) << 2
+                        r += data[index++]
+                        g += data[index++]
+                        b += data[index++]
+                    } else {
+                        --num
+                    }
                 }
                 let index = (yCenter * width + x) << 2
                 data[index++] = r / num

@@ -1,9 +1,10 @@
 class FilledPainter {
-    constructor(canvas, image, radius) {
+    constructor(canvas, image, effect, radius) {
         this._canvas = canvas
         this._context = canvas.getContext('2d')
         this._image = image
-        this._radius = radius;
+        this._effect = effect
+        this._radius = radius
 
         this._imageRatio = image.width / image.height
         this._canvasRatio = canvas.width / canvas.height
@@ -14,7 +15,7 @@ class FilledPainter {
 
         this._drawScaledImage()
         
-        this._blur()
+        this._applyEffect()
 
         this._drawFittedImage()
     }
@@ -48,8 +49,17 @@ class FilledPainter {
         this.drawImage(this._scaledWidth, this._scaledHeight)
     }
 
-    _blur() {
-        let resultImageData = new FastBlur(this._imageData(), this._radius).run()
+    _applyEffect() {
+        let resultImageData = this._imageData()
+        switch (this._effect) {
+            case "blur":
+                resultImageData = new FastBlur(resultImageData, this._radius).run()
+                break
+            case "average":
+                resultImageData = new Average(resultImageData, this._radius).run()
+                break
+        }
+        
         this._context.putImageData(resultImageData, 0, 0)
     }
 

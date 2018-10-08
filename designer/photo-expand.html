@@ -7,6 +7,7 @@
     <script src="imageData/ImageDataFromImage.js"></script>
     <script src="painter/FilledPainter.js"></script>
     <script src="filter/FastBlur.js"></script>
+    <script src="filter/Average.js"></script>
     <script src="exif-js/exif.js"></script>
     <script src="orientation/FixOrientation.js"></script>
     <script src="photo-expand.js"></script>
@@ -15,7 +16,17 @@
 <body>
     <p id="statusView"></p>
     <p><input type="file" id="imageUpload"></p>
-    <p>Using <a href="exif-js">exif-js</a></p>
+    <p><label>
+        Background
+        <select id="effect" required>
+            <option value="none">None</option>
+            <option value="5">5 px blur</option>
+            <option value="10">10 px blur</option>
+            <option value="25" selected>25 px blur</option>
+            <option value="max">Maximum blur</option>
+        </select>
+    </label></p>
     <p><img id="result" width="400" height="400" src=""></p>
+    <p>Using <a href="exif-js">exif-js</a></p>
 </body>
 </html>

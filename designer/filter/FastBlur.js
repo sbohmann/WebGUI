@@ -10,13 +10,13 @@ class FastBlur {
         const width = this._imageData.width
         const height = this._imageData.height
         for (let n = 1; n <= 3; ++n) {
-            this.horizontalBlur(height, width, radius, data)
+            this.horizontalBlur(width, height, radius, data)
             this.verticalBlur(width, height, radius, data)
         }
         return this._imageData
     }
 
-    horizontalBlur(height, width, radius, data) {
+    horizontalBlur(width, height, radius, data) {
         for (let y = 0; y < height; ++y) {
             for (let xCenter = 0; xCenter < width; ++xCenter) {
                 let num = 1

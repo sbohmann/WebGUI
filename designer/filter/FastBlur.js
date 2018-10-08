@@ -60,7 +60,7 @@ class FastBlur {
             }
         }
     }
-
+    
     verticalBlur(width, height, radius, data) {
         for (let x = 0; x < width; ++x) {
             let r = 0, g = 0, b = 0

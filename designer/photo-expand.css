@@ -1,3 +1,9 @@
+body {
+    background-color: #333;
+    color: #eec;
+    font-family: sans-serif;
+}
+
 #colorSelectionButton {
     /*display: none;*/
     width: 50px;

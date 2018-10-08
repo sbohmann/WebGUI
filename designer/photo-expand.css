@@ -35,3 +35,7 @@ body {
 .colorPickerCell .selected {
     border: 5px black solid;
 }
+
+a {
+    color: #9ff;
+}

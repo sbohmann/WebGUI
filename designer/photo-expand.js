@@ -4,8 +4,8 @@ class Page {
     setup() {
         this._width = 800
         this._height = 800
-        this._effect = null
-        this._radius = null
+        this._effect = 'blur'
+        this._radius = 25
         
         this._statusParagraph = document.getElementById('statusView')
         this._uploadInput = document.getElementById('imageUpload')

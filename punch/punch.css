@@ -1,0 +1,28 @@
+body {
+    font-family: sans-serif;
+}
+
+#punchButton {
+    font-size: 36px;
+    width: 340px;
+    height: 100px;
+    background-color: darkred;
+    color: white;
+}
+
+#punchButton.active {
+    background-color: lightgreen;
+    color: black;
+}
+
+#currentTime {
+    font-size: 36px;
+    color: lightgray;
+}
+
+#currentTime.active {
+    color: black;
+}
+
+#pastTimes {
+}

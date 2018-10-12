@@ -8,32 +8,77 @@ class Punch {
     }
 
     _setupState() {
-        // TODO initialize from data
-        this._running = false
-        this._pastTimes = []
+        let storedState = window.localStorage.getItem('state')
+        if (storedState != null) {
+            let state = JSON.parse(storedState)
+            this._running = this._orElse(state.running, false)
+            this._pastTimes = this._orElse(state.pastTimes, [])
+            this._currentStartTime = this._readDate(this._orElse(state.currentStartTime, ""))
+        } else {
+            this._running = false
+            this._pastTimes = []
+            this._currentStartTime = null
+        }
+        this._lastSaveTime = null
         this._showState()
+        if (this._currentStartTime != null) {
+            setTimeout(() => {
+                this._currentTimeInterval = setInterval(() => this._showCurrentTime(), 1000)
+            }, this.initialDelay())
+            this._showCurrentTime()
+        }
+        this._pastTimes.forEach(timeEntry => {
+            let listItem = this.createPastTimeListItem(timeEntry);
+            this._pastTimesView.appendChild(listItem)
+        })
+    }
+    
+    _orElse(value, fallbackValue) {
+        return value !== undefined ? value : fallbackValue
+    }
+
+    initialDelay() {
+        return (1000 + this._currentStartTime.getUTCMilliseconds() - new Date().getUTCMilliseconds()) % 1000 
+    }
+    
+    _readDate(text) {
+        if (text === "") {
+            return null
+        } else {
+            return new Date(text)
+        }
     }
 
     _fetchElements() {
         this._punchButton = document.getElementById('punchButton')
-        this._exportButton = document.getElementById('exportButton')
-        this._currentTimeView = document.getElementById('currentTime')
-        this._pastTimesView = document.getElementById('pastTimes')
+        this._exportLink = document.getElementById('exportLink')
+        this._currentTimeView = document.getElementById('currentTimeView')
+        this._pastTimesView = document.getElementById('pastTimesView')
     }
 
     _setupListeners() {
         this._punchButton.onclick = () => {
             this._running ? this._stop() : this._start()
         }
-        this._exportButton.onclick = () => {
+        this._exportLink.onclick = () => {
             console.log('exporting')
             console.log(this._pastTimes)
+            let csv = 'start;stop\n'
+            this._pastTimes.forEach(time => {
+                csv += time.start + ';' +
+                    time.stop + '\n'
+            })
+            let blob = new Blob([csv], { type: 'text/csv' })
+            let url = URL.createObjectURL(blob)
+            this._exportLink.href = url
+            // TODO revoke Object url? when?
         }
     }
 
     _start() {
         this._running = true
         this._currentStartTime = new Date()
+        this._saveState()
         this._showRunningState()
         this._currentTimeInterval = setInterval(() => this._showCurrentTime(), 1000)
         this._showCurrentTime()
@@ -42,17 +87,24 @@ class Punch {
     _stop() {
         let stopTime = new Date()
         this._running = false
+        this._currentStartTime = null;
         clearInterval(this._currentTimeInterval)
         this._currentTimeInterval = null
-        this._showStoppedState()
         let timeEntry = {
             start: this._currentStartTime.toISOString(),
             stop: stopTime.toISOString()
         };
         this._pastTimes.push(timeEntry)
+        this._saveState()
+        this._showStoppedState()
+        let listItem = this.createPastTimeListItem(timeEntry);
+        this._pastTimesView.insertAdjacentElement('afterbegin', listItem)
+    }
+
+    createPastTimeListItem(timeEntry) {
         let listItem = document.createElement('li')
         listItem.textContent = timeEntry.start + ' - ' + timeEntry.stop
-        this._pastTimesView.insertAdjacentElement('afterbegin', listItem)
+        return listItem;
     }
 
     _showState() {
@@ -73,11 +125,15 @@ class Punch {
     }
 
     _showCurrentTime() {
-        this._currentTimeView.textContent = this._timeToString(new Date() - this._currentStartTime)
+        let now = new Date();
+        this._currentTimeView.textContent = this._timeToString(now - this._currentStartTime)
+        if (this._lastSaveTime == null || now - this._lastSaveTime > 10 * 1000) {
+            this._saveState()
+        }
     }
 
     _timeToString(milliseconds) {
-        let seconds = Math.round(milliseconds / 1000)
+        let seconds = Math.trunc((milliseconds + 100) / 1000)
         let minutes = Math.trunc(seconds / 60)
         seconds %= 60
         let hours = Math.trunc(minutes / 60)
@@ -95,5 +151,16 @@ class Punch {
         } else {
             return value
         }
+    }
+
+    _saveState() {
+        this._lastSaveTime = new Date()
+        let state = JSON.stringify({
+            pastTimes: this._pastTimes,
+            running: this._running,
+            currentStartTime: this._running ? this._currentStartTime.toISOString() : ""
+        })
+        window.localStorage.setItem('state', state)
+        console.log(state)
     }
 }

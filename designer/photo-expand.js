@@ -89,6 +89,7 @@ class Page {
         let url = this._createDataUrl(data)
         this._image = document.createElement('img')
         this._image.src = url
+        // TODO revoke object url?
     }
 
     _createDataUrl(data) {

@@ -108,13 +108,16 @@ class Page {
     }
 
     _setEffectFromInput() {
-        let value = this._effectInput.value;
+        let value = this._effectInput.value
+        let colorSelectionButtonVisible = false
         if (value === "max") {
             this._effect = "average"
             this._radius = null
         } else if (value === "none") {
             this._effect = null
             this._radius = null
+        } else if (value === "color") {
+            colorSelectionButtonVisible = true
         } else {
             let radius = parseInt(value);
             if (isNaN(radius)) {
@@ -129,6 +132,11 @@ class Page {
         if (this._image != null) {
             this._drawImage()
         }
+        
+        this._colorSelectionButton.style.display =
+            colorSelectionButtonVisible
+                ? "inline"
+                : "none"
     }
     
     _showColorPicker() {

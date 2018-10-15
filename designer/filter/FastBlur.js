@@ -4,6 +4,11 @@ class FastBlur {
         this._radius = radius
     }
 
+    /**
+     * Approximates the look of a Gaussian blur.
+     * Three-step blur; horizontal, then vertical in each step.
+     * @returns the imageData argument passed to the constructor for convenience
+     */
     run() {
         const data = this._imageData.data
         const radius = this._radius
@@ -16,6 +21,15 @@ class FastBlur {
         return this._imageData
     }
 
+    /**
+     * Call this directly for a single horizontal blur step
+     * Heavily optimized for portable speed,
+     * thus significantly longer than an OOP method's usual 1 - 3 lines
+     * @param width imageData.width
+     * @param height imageData.height
+     * @param radius approximate blur radius
+     * @param data imageData.data
+     */
     static horizontalBlur(width, height, radius, data) {
         for (let y = 0; y < height; ++y) {
             let r = 0, g = 0, b = 0
@@ -115,6 +129,17 @@ class FastBlur {
         }
     }
 
+
+
+    /**
+     * Call this directly for a single vertical blur step
+     * Heavily optimized for portable speed,
+     * thus significantly longer than an OOP method's usual 1 - 3 lines
+     * @param width imageData.width
+     * @param height imageData.height
+     * @param radius approximate blur radius
+     * @param data imageData.data
+     */
     static verticalBlur(width, height, radius, data) {
         for (let x = 0; x < width; ++x) {
             let r = 0, g = 0, b = 0

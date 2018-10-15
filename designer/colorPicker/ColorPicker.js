@@ -12,6 +12,10 @@ class ColorPicker {
     get result() {
         return this._result
     }
+    
+    set close(closingFunction) {
+        this.closingFunction = closingFunction
+    }
 
     _createTable() {
         this._table = document.createElement('table')

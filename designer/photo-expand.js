@@ -143,6 +143,9 @@ class Page {
         if (this._colorPicker === undefined) {
             this._colorPicker = new ColorPicker()
             this._colorPickerDiv.appendChild(this._colorPicker.mainElement)
+            this._colorPicker.onclose = () => {
+                this._colorPickerDiv.style.display = 'none'
+            }
         }
         this._colorPickerDiv.style.display = 'inline'
     }

@@ -1,20 +1,21 @@
 class ColorPicker {
     constructor() {
         this._result = { r: 0, g: 0, b: 0 }
-        this._div = document.createElement('div')
-        this._createTable();
+        this._mainDiv = document.createElement('div')
+        this._createTable()
+        this._createBottomRow()
     }
 
     get mainElement() {
-        return this._div
+        return this._mainDiv
     }
 
     get result() {
         return this._result
     }
     
-    set close(closingFunction) {
-        this.closingFunction = closingFunction
+    set onclose(closingFunction) {
+        this._closingFunction = closingFunction
     }
 
     _createTable() {
@@ -23,7 +24,7 @@ class ColorPicker {
         this._table.style.width = '300px'
         this._table.style.height = '150px'
         this._createRows()
-        this._div.appendChild(this._table)
+        this._mainDiv.appendChild(this._table)
         this._initializeCellColors()
     }
 
@@ -154,5 +155,16 @@ class ColorPicker {
             g: Math.round(g),
             b: Math.round(b)
         };
+    }
+    
+    _createBottomRow() {
+        let cancelButton = document.createElement('button')
+        cancelButton.textContent = 'Close'
+        cancelButton.onclick = () => {
+            if (this._closingFunction) {
+                this._closingFunction()
+            }
+        }
+        this._mainDiv.appendChild(cancelButton)
     }
 }

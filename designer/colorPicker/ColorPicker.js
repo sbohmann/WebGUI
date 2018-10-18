@@ -57,6 +57,10 @@ class ColorPicker {
             let cell = this._hueRow[index]
             let color = this._hueColor(index)
             cell.style.backgroundColor = this._cssColorRepresentation(color)
+            cell.onclick = () => {
+                this._setHue(index)
+                this._setSaturation(2)
+            }
         }
     }
     
@@ -71,6 +75,9 @@ class ColorPicker {
             let cell = this._saturationRow[index]
             let color = this._saturationColor(index)
             cell.style.backgroundColor = this._cssColorRepresentation(color)
+            cell.onclick = () => {
+                this._setSaturation(index)
+            }
         }
     }
 
@@ -88,6 +95,9 @@ class ColorPicker {
             let cell = this._luminosityRow[index]
             let color = this._luminosityColor(index)
             cell.style.backgroundColor = this._cssColorRepresentation(color)
+            cell.onclick = () => {
+                // TODO set selected color
+            }
         }
     }
 
@@ -120,23 +130,29 @@ class ColorPicker {
     }
     
     _multiply(color, factor) {
-        return {
-            r: color.r * factor,
-            g: color.g * factor,
-            b: color.b * factor
-        }
+        return this._createColor(
+            color.r * factor,
+            color.g * factor,
+            color.b * factor)
     }
 
     _desaturate(color, factor) {
-        return {
-            r: this._interpolate(color.r, 0xff, factor),
-            g: this._interpolate(color.g, 0xff, factor),
-            b: this._interpolate(color.b, 0xff, factor)
-        }
+        return this._createColor(
+            this._interpolate(color.r, 0xff, factor),
+            this._interpolate(color.g, 0xff, factor),
+            this._interpolate(color.b, 0xff, factor))
     }
 
     _interpolate(lhs, rhs, lhsPart) {
         let rhsPart = (1 - lhsPart);
         return lhs * lhsPart + rhs * rhsPart
+    }
+
+    _createColor(r, g, b) {
+        return {
+            r: Math.round(r),
+            g: Math.round(g),
+            b: Math.round(b)
+        };
     }
 }

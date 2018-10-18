@@ -17,6 +17,10 @@ class ColorPicker {
     set onclose(closingFunction) {
         this._closingFunction = closingFunction
     }
+    
+    set oncolorpick(colorPickHandler) {
+        this._colorPickHandler = colorPickHandler
+    }
 
     _createTable() {
         this._table = document.createElement('table')
@@ -97,7 +101,9 @@ class ColorPicker {
             let color = this._luminosityColor(index)
             cell.style.backgroundColor = this._cssColorRepresentation(color)
             cell.onclick = () => {
-                // TODO set selected color
+                if (this._colorPickHandler) {
+                    this._colorPickHandler(this._cssColorRepresentation(color))
+                }
             }
         }
     }

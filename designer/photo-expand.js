@@ -144,9 +144,18 @@ class Page {
             this._colorPicker = new ColorPicker()
             this._colorPickerDiv.appendChild(this._colorPicker.mainElement)
             this._colorPicker.onclose = () => {
-                this._colorPickerDiv.style.display = 'none'
+                this._hideColorPicker();
+            }
+            this._colorPicker.oncolorpick = (color) => {
+                this._hideColorPicker()
+                console.log(color)
+                this._colorSelectionButton.style.background = color
             }
         }
         this._colorPickerDiv.style.display = 'inline'
+    }
+
+    _hideColorPicker() {
+        this._colorPickerDiv.style.display = 'none'
     }
 }

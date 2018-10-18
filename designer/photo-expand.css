@@ -12,6 +12,7 @@ body {
     padding: 0;
     border: 1px black solid;
     background-color: black;
+    -webkit-appearance: none;
 }
 
 #colorPicker {
@@ -21,14 +22,14 @@ body {
     top: 10px;
     left: 10px;
     width: 327px;
-    height: 250px;
+    height: 190px;
     border: 1px black solid;
     margin: 0;
     padding: 5px;
 }
 
 .colorPickerCell {
-    width: 50px;
+    width: 23px;
     height: 50px;
     border: none;
 }

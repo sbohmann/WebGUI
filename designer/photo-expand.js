@@ -6,6 +6,7 @@ class Page {
         this._height = 800
         this._effect = 'blur'
         this._radius = 25
+        this._effectColor = { r: 0, g: 0, b: 0 }
         
         this._statusParagraph = document.getElementById('statusView')
         this._uploadInput = document.getElementById('imageUpload')
@@ -101,7 +102,7 @@ class Page {
     _drawImage() {
         this._statusParagraph.textContent = "Calculating..."
         setTimeout(() => {
-            new FilledPainter(this._canvas, this._image, this._effect, this._radius).run()
+            new FilledPainter(this._canvas, this._image, this._effect, this._radius, this._effectColor).run()
             this._result.src = this._canvas.toDataURL("image/png")
             this._statusParagraph.textContent = "Finished. Orientation: " + this._orientation
         }, 0)
@@ -117,6 +118,7 @@ class Page {
             this._effect = null
             this._radius = null
         } else if (value === "color") {
+            this._effect = 'color'
             colorSelectionButtonVisible = true
         } else {
             let radius = parseInt(value);
@@ -146,10 +148,18 @@ class Page {
             this._colorPicker.onclose = () => {
                 this._hideColorPicker();
             }
-            this._colorPicker.oncolorpick = (color) => {
+            this._colorPicker.oncolorpick = (color, cssColor) => {
                 this._hideColorPicker()
-                console.log(color)
-                this._colorSelectionButton.style.background = color
+                this._colorSelectionButton.style.background = cssColor
+                this._effect = 'color'
+                this._effectColor = color
+                if (this._image != null) {
+                    this._drawImage()
+                }
+
+                if (this._image != null) {
+                    this._drawImage()
+                }
             }
         }
         this._colorPickerDiv.style.display = 'inline'

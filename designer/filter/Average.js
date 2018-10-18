@@ -1,19 +1,17 @@
 class Average {
-    constructor(imageData, radius) {
+    constructor(imageData) {
         this._imageData = imageData
-        this._radius = radius
     }
 
     run() {
         const data = this._imageData.data
-        const radius = this._radius
         const width = this._imageData.width
         const height = this._imageData.height
-        this.averagePixels(width, height, radius, data)
+        this.averagePixels(width, height, data)
         return this._imageData
     }
 
-    averagePixels(width, height, radius, data) {
+    averagePixels(width, height, data) {
         let r = 0, g = 0, b = 0
         for (let y = 0; y < height; ++y) {
             for (let x = 0; x < width; ++x) {

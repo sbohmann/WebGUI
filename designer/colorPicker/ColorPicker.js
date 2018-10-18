@@ -1,5 +1,6 @@
 class ColorPicker {
     constructor() {
+        this._steps = 12
         this._result = { r: 0, g: 0, b: 0 }
         this._mainDiv = document.createElement('div')
         this._createTable()
@@ -41,7 +42,7 @@ class ColorPicker {
     _createRow() {
         let cells = []
         let tableRow = document.createElement('tr')
-        for (let index = 0; index < 6; ++index) {
+        for (let index = 0; index < this._steps; ++index) {
             let cell = document.createElement('td')
             cell.classList.add('colorPickerCell')
             cells.push(cell)
@@ -58,7 +59,7 @@ class ColorPicker {
     }
 
     _initializeHueCells() {
-        for (let index = 0; index < 6; ++index) {
+        for (let index = 0; index < this._steps; ++index) {
             let cell = this._hueRow[index]
             let color = this._hueColor(index)
             cell.style.backgroundColor = this._cssColorRepresentation(color)
@@ -76,7 +77,7 @@ class ColorPicker {
 
     _initializeSaturationCells() {
         let hueColor = this._hueColor(this._hueIndex)
-        for (let index = 0; index < 6; ++index) {
+        for (let index = 0; index < this._steps; ++index) {
             let cell = this._saturationRow[index]
             let color = this._saturationColor(index)
             cell.style.backgroundColor = this._cssColorRepresentation(color)
@@ -96,13 +97,14 @@ class ColorPicker {
 
     _initializeLuminosityCells() {
         let saturationColor = this._saturationColor(this._saturationIndex)
-        for (let index = 0; index < 6; ++index) {
+        for (let index = 0; index < this._steps; ++index) {
             let cell = this._luminosityRow[index]
             let color = this._luminosityColor(index)
-            cell.style.backgroundColor = this._cssColorRepresentation(color)
+            let cssColor = this._cssColorRepresentation(color);
+            cell.style.backgroundColor = cssColor
             cell.onclick = () => {
                 if (this._colorPickHandler) {
-                    this._colorPickHandler(this._cssColorRepresentation(color))
+                    this._colorPickHandler(color, cssColor)
                 }
             }
         }
@@ -111,20 +113,26 @@ class ColorPicker {
     _hueColor(index) {
         switch (index) {
             case 0: return { r: 0xff, g: 0, b: 0 }
-            case 1: return { r: 0xff, g: 0xff, b: 0 }
-            case 2: return { r: 0, g: 0xff, b: 0 }
-            case 3: return { r: 0, g: 0xff, b: 0xff }
-            case 4: return { r: 0, g: 0, b: 0xff }
-            case 5: return { r: 0xff, g: 0, b: 0xff }
+            case 1: return { r: 0xff, g: 0xcc, b: 0 }
+            case 2: return { r: 0xff, g: 0xff, b: 0 }
+            case 3: return { r: 0xcc, g: 0xff, b: 0 }
+            case 4: return { r: 0, g: 0xff, b: 0 }
+            case 5: return { r: 0, g: 0xff, b: 0xcc }
+            case 6: return { r: 0, g: 0xff, b: 0xff }
+            case 7: return { r: 0, g: 0xcc, b: 0xff }
+            case 8: return { r: 0, g: 0, b: 0xff }
+            case 9: return { r: 0xcc, g: 0, b: 0xff }
+            case 10: return { r: 0xff, g: 0, b: 0xff }
+            case 11: return { r: 0xff, g: 0, b: 0xcc }
         }
     }
 
     _saturationColor(index) {
-        return this._desaturate(this._hueColor(this._hueIndex), index / 5);
+        return this._desaturate(this._hueColor(this._hueIndex), index / (this._steps - 1));
     }
 
     _luminosityColor(index) {
-        return this._multiply(this._saturationColor(this._saturationIndex), index / 5);
+        return this._multiply(this._saturationColor(this._saturationIndex), index / (this._steps - 1));
         
     }
     

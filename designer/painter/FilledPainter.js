@@ -1,10 +1,11 @@
 class FilledPainter {
-    constructor(canvas, image, effect, radius) {
+    constructor(canvas, image, effect, radius, effectColor) {
         this._canvas = canvas
         this._context = canvas.getContext('2d')
         this._image = image
         this._effect = effect
         this._radius = radius
+        this._effectColor = effectColor
 
         this._imageRatio = image.width / image.height
         this._canvasRatio = canvas.width / canvas.height
@@ -56,7 +57,10 @@ class FilledPainter {
                 resultImageData = new FastBlur(resultImageData, this._radius).run()
                 break
             case "average":
-                resultImageData = new Average(resultImageData, this._radius).run()
+                resultImageData = new Average(resultImageData).run()
+                break
+            case "color":
+                resultImageData = new SolidColor(resultImageData, this._effectColor).run()
                 break
         }
         

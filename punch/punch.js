@@ -85,13 +85,14 @@ class Punch {
     }
 
     _stop() {
+        let startTime = this._currentStartTime
         let stopTime = new Date()
         this._running = false
         this._currentStartTime = null;
         clearInterval(this._currentTimeInterval)
         this._currentTimeInterval = null
         let timeEntry = {
-            start: this._currentStartTime.toISOString(),
+            start: startTime.toISOString(),
             stop: stopTime.toISOString()
         };
         this._pastTimes.push(timeEntry)

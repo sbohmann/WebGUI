@@ -7,11 +7,11 @@ body {
 #colorSelectionButton {
     display: none;
     width: 50px;
-    height: 50px;
     margin: 0;
     padding: 0;
-    border: 1px black solid;
+    border: 1px white solid;
     background-color: black;
+    vertical-align: text-bottom;
     -webkit-appearance: none;
 }
 
@@ -19,9 +19,9 @@ body {
     display: none;
     background-color: white;
     position: absolute;
-    top: 10px;
-    left: 10px;
-    width: 327px;
+    top: 5px;
+    left: 5px;
+    width: 350px;
     height: 190px;
     border: 1px black solid;
     margin: 0;
@@ -29,7 +29,7 @@ body {
 }
 
 .colorPickerCell {
-    width: 23px;
+    width: 25px;
     height: 50px;
     border: none;
 }

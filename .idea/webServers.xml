@@ -13,7 +13,15 @@
       <webServer id="eb3967e5-bfa5-4ca0-9a3c-b6df4c7f47d0" name="yeoman юлия" url="http://yeoman.at/julia/photo-expand.html">
         <fileTransfer host="ftp03.sprit.org" port="21">
           <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" shareSSLContext="true" />
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="933d369e-0154-4656-9dba-11fb954c93dc" name="uikit" url="http://yeoman.at/julia/photo-expand.html">
+        <fileTransfer host="ftp03.sprit.org" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
           </advancedOptions>
           <option name="port" value="21" />
         </fileTransfer>

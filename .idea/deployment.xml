@@ -16,6 +16,13 @@
           </excludedPaths>
         </serverdata>
       </paths>
+      <paths name="uikit">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/www.yeoman.at/uikit" local="$PROJECT_DIR$/uikit" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="yeoman юлия">
         <serverdata>
           <mappings>

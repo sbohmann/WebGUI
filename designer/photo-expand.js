@@ -51,9 +51,21 @@ class Page {
     }
 
     _showFile(file) {
+        this._displayFileUpload(file)
+        
         const reader = new FileReader()
         reader.onload = event => this._paintImage(event.target.result)
         reader.readAsArrayBuffer(file)
+    }
+    
+    _displayFileUpload(file) {
+        try {
+            this._statusParagraph.textContent =
+                'Uploading file ' + file.name
+        }
+        catch (error) {
+            console.log(error)
+        }
     }
 
     _paintImage(data) {

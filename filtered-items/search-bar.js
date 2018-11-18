@@ -1,6 +1,7 @@
 
 class SearchBar {
-    constructor() {
+    constructor(changeHandler) {
+        this._changeHandler = changeHandler;
         this._mainElement = document.createElement('div')
         this._createSearchInputField()
         this._createAvailableOnlyCheckbox()
@@ -22,7 +23,11 @@ class SearchBar {
     }
 
     _searchTermChanged(value) {
-        console.log('search term is now [' + value + ']')
+        value = value.trim().toLowerCase()
+        if (this._previousSearchTerm !== value) {
+            this._changeHandler.searchTermChanged(value)
+        }
+        this._previousSearchTerm = value
     }
 
     _createAvailableOnlyCheckbox() {

@@ -2,7 +2,6 @@
 class SearchBar {
     constructor() {
         this._textChanged = null
-
         this._createMainElement()
         this._createTextInput()
     }

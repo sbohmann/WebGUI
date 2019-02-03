@@ -3,9 +3,14 @@ import {a, div, img, span, text} from '../elements.js'
 export class MonthSelector {
     constructor(calendarMonth) {
         this.calendarMonth = calendarMonth
+        this.monthChangedHandlers = []
         this._createElements()
         this._createMainElement()
         this._setupEventHandling()
+    }
+
+    addMonthChangedHandler(handler) {
+        this.monthChangedHandlers.push(handler)
     }
 
     _createElements() {
@@ -33,11 +38,18 @@ export class MonthSelector {
 
     _back() {
         this.calendarMonth = this.calendarMonth.plusMonths(-1)
-        this._monthDisplayText.nodeValue = this.calendarMonth
+        this._monthChanged()
     }
 
     _forward() {
         this.calendarMonth = this.calendarMonth.plusMonths(1)
+        this._monthChanged()
+    }
+
+    _monthChanged() {
         this._monthDisplayText.nodeValue = this.calendarMonth
+        for (let handler of this.monthChangedHandlers) {
+            handler(this.calendarMonth)
+        }
     }
 }

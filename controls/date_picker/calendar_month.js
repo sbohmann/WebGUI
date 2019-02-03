@@ -25,11 +25,13 @@ export class CalendarMonth {
     }
 
     plusYears(delta) {
-        return new CalendarMonth(null, null, this._value + 12 * delta)
+        return new CalendarMonth(null,null,
+            this._value + 12 * delta)
     }
 
     plusMonths(delta) {
-        return new CalendarMonth(null, null, this._value + delta)
+        return new CalendarMonth(null,null,
+            this._value + delta)
     }
 
     toString() {

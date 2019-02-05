@@ -30,5 +30,6 @@ export class DatePicker {
 
     _createMonthView() {
         this.monthView = new MonthView(this.calendarMonth)
+        this.mainElement.appendChild(this.monthView.mainElement)
     }
 }

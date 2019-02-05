@@ -1,7 +1,6 @@
 export function element(type, content) {
     let result = document.createElement(type)
     for (let element of content) {
-        console.log(element)
         result.appendChild(element)
     }
     return result
@@ -17,6 +16,22 @@ export function span(...content) {
 
 export function a(...content) {
     return element('a', content)
+}
+
+export function table(...content) {
+    return element('table', content)
+}
+
+export function th(...content) {
+    return element('th', content)
+}
+
+export function tr(...content) {
+    return element('tr', content)
+}
+
+export function td(...content) {
+    return element('td', content)
 }
 
 export function img(src, ...content) {

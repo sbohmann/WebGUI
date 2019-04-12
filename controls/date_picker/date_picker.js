@@ -5,7 +5,7 @@ import {MonthView} from './month_view.js'
 
 export class DatePicker {
     constructor(mainElement) {
-        this.calendarMonth = new CalendarMonth(2019, 2)
+        this._calendarMonth = new CalendarMonth(2019, 2)
         this.mainElement = mainElement
             ? mainElement
             : div()
@@ -18,18 +18,18 @@ export class DatePicker {
     }
 
     _createMonthSelector() {
-        let monthSelector = new MonthSelector(this.calendarMonth)
+        let monthSelector = new MonthSelector(this._calendarMonth)
         this.mainElement.appendChild(monthSelector.mainElement)
-        monthSelector.addMonthChangedHandler((newCalendarMonth) => this._monthChanged(newCalendarMonth))
+        monthSelector.addMonthChangedHandler(newCalendarMonth => this._monthChanged(newCalendarMonth))
     }
 
     _monthChanged(newCalendarMonth) {
-        this.calendarMonth = newCalendarMonth
-        this._createMonthView()
+        this._calendarMonth = newCalendarMonth
+        this._monthView.calendarMonth = this._calendarMonth
     }
 
     _createMonthView() {
-        this.monthView = new MonthView(this.calendarMonth)
-        this.mainElement.appendChild(this.monthView.mainElement)
+        this._monthView = new MonthView(this._calendarMonth)
+        this.mainElement.appendChild(this._monthView.mainElement)
     }
 }

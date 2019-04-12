@@ -12,6 +12,11 @@ export class MonthView {
         this._updateUi()
     }
 
+    set calendarMonth(value) {
+        this._calendarMonth = value
+        this._updateUi()
+    }
+
     set firstDayOfWeek(value) {
         checkDayOfWeek(value)
         this._firstDayOfWeek = value
@@ -32,23 +37,49 @@ export class MonthView {
         this._rows[row_index] = row
         this.mainElement.appendChild(row)
         for (let index = 0; index < DaysPerWeek; ++index) {
-            let cell_index = row_index * DaysPerWeek + index
-            let cell = td(text(cell_index))
-            this._cells[cell_index] = cell
-            cell.style.fontSize = '32px'
-            row.appendChild(cell)
+            this._createCell(row_index, index, row)
         }
     }
 
-    _updateUi() {
-        this._determineFirstDayCellIndex()
+    _createCell(row_index, index, row) {
+        let cell_index = row_index * DaysPerWeek + index
+        let cell = td()
+        this._cells[cell_index] = cell
+        cell.style.fontSize = '32px'
+        row.appendChild(cell)
     }
 
-    _determineFirstDayCellIndex() {
-        let firstDayOfMonth = JSJoda.LocalDate.of(this._calendarMonth.year, this._calendarMonth.month, 1)
-        console.log(firstDayOfMonth)
-        console.log(firstDayOfMonth.dayOfWeek())
-        console.log(firstDayOfMonth.dayOfWeek().value())
+    _updateUi() {
+        this._determineFirstDayOfMonth()
+        this._clearCells()
+        this._fillCells()
+    }
+
+    _determineFirstDayOfMonth() {
+        this._firstDayOfMonth = JSJoda.LocalDate.of(this._calendarMonth.year, this._calendarMonth.month, 1)
+        this._firstDayCellIndex = (this._firstDayOfMonth.dayOfWeek().value() + 6 - this._firstDayOfWeek) % 7
+    }
+
+    _clearCells() {
+        for (let cell of this._cells) {
+            while (cell.firstChild) {
+                cell.removeChild(cell.firstChild)
+            }
+        }
+    }
+
+    _fillCells() {
+        let day = this._firstDayOfMonth
+        let cellIndex = this._firstDayCellIndex
+        while (day.month().value() === this._calendarMonth.month) {
+            this._addTextToCell(cellIndex, day)
+            day = day.plusDays(1)
+            cellIndex += 1
+        }
+    }
+
+    _addTextToCell(cellIndex, day) {
+        this._cells[cellIndex].appendChild(text(day.dayOfMonth()))
     }
 }
 

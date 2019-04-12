@@ -14,9 +14,13 @@ export class MonthSelector {
     }
 
     _createElements() {
-        this.back = a(text('<'))
+        this.back = this._link('<')
         this.month = this._createMonthDisplay()
-        this.forward = a(text('>'))
+        this.forward = this._link('>')
+    }
+
+    _link(textContent) {
+        return a(text(textContent))
     }
 
     _createMonthDisplay() {
@@ -26,6 +30,9 @@ export class MonthSelector {
 
     _createMainElement() {
         this.mainElement = div(this.back, this.month, this.forward)
+        this.mainElement.align = 'center'
+        this.back.style.float = 'left'
+        this.forward.style.float = 'right'
     }
 
     _setupEventHandling() {

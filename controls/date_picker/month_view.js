@@ -30,6 +30,7 @@ export class MonthView {
         for (let index = 0; index < NumberOfRows; ++index) {
             this._createRow(index)
         }
+        this._styleMainElement()
     }
 
     _createRow(row_index) {
@@ -44,8 +45,15 @@ export class MonthView {
     _createCell(row_index, index, row) {
         let cell_index = row_index * DaysPerWeek + index
         let cell = td()
+        cell.style.textAlign = 'center'
         this._cells[cell_index] = cell
         row.appendChild(cell)
+    }
+
+    _styleMainElement() {
+        let style = this.mainElement.style
+        style.tableLayout = 'fixed'
+        style.emptyCells = 'show'
     }
 
     _updateUi() {
@@ -69,12 +77,22 @@ export class MonthView {
 
     _fillCells() {
         let day = this._firstDayOfMonth
+        for (let cellIndex = 0; cellIndex < this._firstDayCellIndex; ++cellIndex) {
+            this._addNonBreakingSpaceToEmptyCell(cellIndex)
+        }
         let cellIndex = this._firstDayCellIndex
         while (day.month().value() === this._calendarMonth.month) {
             this._addTextToCell(cellIndex, day)
             day = day.plusDays(1)
             cellIndex += 1
         }
+        for (; cellIndex < this._cells.length; ++cellIndex) {
+            this._addNonBreakingSpaceToEmptyCell(cellIndex)
+        }
+    }
+
+    _addNonBreakingSpaceToEmptyCell(cellIndex) {
+        this._cells[cellIndex].appendChild(text('\xa0'))
     }
 
     _addTextToCell(cellIndex, day) {

@@ -15,12 +15,13 @@ export class DatePicker {
     _createUi() {
         this._createMonthSelector()
         this._createMonthView()
+        this._setStyles()
     }
 
     _createMonthSelector() {
-        let monthSelector = new MonthSelector(this._calendarMonth)
-        this.mainElement.appendChild(monthSelector.mainElement)
-        monthSelector.addMonthChangedHandler(newCalendarMonth => this._monthChanged(newCalendarMonth))
+        this._monthSelector = new MonthSelector(this._calendarMonth)
+        this.mainElement.appendChild(this._monthSelector.mainElement)
+        this._monthSelector.addMonthChangedHandler(newCalendarMonth => this._monthChanged(newCalendarMonth))
     }
 
     _monthChanged(newCalendarMonth) {
@@ -31,5 +32,21 @@ export class DatePicker {
     _createMonthView() {
         this._monthView = new MonthView(this._calendarMonth)
         this.mainElement.appendChild(this._monthView.mainElement)
+    }
+
+    _setStyles() {
+        this._styleMainElement()
+        this._monthView.mainElement.style.marginTop = '5px'
+    }
+
+    _styleMainElement() {
+        let style = this.mainElement.style
+        style.display = 'table'
+        style.background = '#ddeeff'
+        style.padding = '5px'
+        style.cursor = 'pointer'
+        style.userSelect = 'none'
+        style.msUserSelect = 'none'
+        style.webkitUserSelect = 'none'
     }
 }

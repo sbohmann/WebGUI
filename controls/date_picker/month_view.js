@@ -45,7 +45,6 @@ export class MonthView {
         let cell_index = row_index * DaysPerWeek + index
         let cell = td()
         this._cells[cell_index] = cell
-        cell.style.fontSize = '32px'
         row.appendChild(cell)
     }
 

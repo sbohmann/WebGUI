@@ -1,4 +1,4 @@
-import {a, div, img, span, text} from '../elements.js'
+import {a, div, span, text} from '../elements.js'
 
 export class MonthSelector {
     constructor(calendarMonth) {
@@ -14,17 +14,14 @@ export class MonthSelector {
     }
 
     _createElements() {
-        this.back = a(img('images/back.png'))
+        this.back = a(text('<'))
         this.month = this._createMonthDisplay()
-        this.forward = a(img('images/forward.png'))
+        this.forward = a(text('>'))
     }
 
     _createMonthDisplay() {
         this._monthDisplayText = text(this.calendarMonth)
-        let result = span(this._monthDisplayText)
-        result.style.fontSize = '60px'
-        result.style.verticalAlign = 'top'
-        return result
+        return span(this._monthDisplayText)
     }
 
     _createMainElement() {

@@ -1,4 +1,4 @@
-import {a, div, span, text} from '../elements.js'
+import {a, div, span, text} from './elements.js'
 
 export class MonthSelector {
     constructor(calendarMonth) {

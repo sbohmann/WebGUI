@@ -1,4 +1,4 @@
-import {table, tr, td, text} from '../elements.js'
+import {table, tr, td, text} from './elements.js'
 import * as JSJoda from '../../libs/js-joda/js-joda.js'
 
 const NumberOfRows = 6

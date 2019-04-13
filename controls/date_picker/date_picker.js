@@ -1,4 +1,4 @@
-import {div} from '../elements.js'
+import {div} from './elements.js'
 import {MonthSelector} from './month_selector.js'
 import {CalendarMonth} from './calendar_month.js'
 import {MonthView} from './month_view.js'

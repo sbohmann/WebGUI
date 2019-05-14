@@ -16,6 +16,13 @@
           </excludedPaths>
         </serverdata>
       </paths>
+      <paths name="photobackup client">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/photobackup" local="$PROJECT_DIR$/photobackup" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="uikit">
         <serverdata>
           <mappings>

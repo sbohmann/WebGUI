@@ -1,20 +1,25 @@
 
 class Text {
     constructor(value) {
-        this.domElement = document.createTextNode(value)
+        this.domNode = document.createTextNode(value)
     }
 }
 
 class Element {
     constructor(elementType) {
-        this.domElement = document.createElement(elementType).appendChild()
+        this.domNode = document.createElement(elementType)
     }
 
-    function children(...childrenToAdd) {
+    withChildren(...childrenToAdd) {
         for (let child of childrenToAdd) {
-            this.domElement.appendChild(child)
+            this.domNode.appendChild(child.domNode)
         }
+        return this
     }
+}
+
+export function text(value) {
+    return new Text(value)
 }
 
 export function element(elementType) {

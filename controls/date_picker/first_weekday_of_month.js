@@ -1,4 +1,4 @@
-import {iso8601DaysForMonth} from './days_for_month.js'
+import {daysForMonth} from './days_for_month.js'
 import {CalendarMonth} from './calendar_month.js'
 
 //  monday: 1 ... sunday: 7
@@ -6,10 +6,10 @@ import {CalendarMonth} from './calendar_month.js'
 const daysPer400YearInterval = (365 * 400 + 97)
 const iso8601FirstWeekday = 1
 
-export const iso8601FirstWeekdayOfMonth =
-    calendarMonth => new Iso8601FirstWeekdayOfMonth(calendarMonth).result
+export const firstWeekdayOfMonth =
+    calendarMonth => new FirstWeekdayOfMonth(calendarMonth).result
 
-class Iso8601FirstWeekdayOfMonth {
+class FirstWeekdayOfMonth {
     constructor(calendarMonth) {
         this.year = calendarMonth.year
         this.month = calendarMonth.month
@@ -41,7 +41,7 @@ class Iso8601FirstWeekdayOfMonth {
     daysInYearBeforeMonth() {
         let result = 0
         for (let other = 1; other < this.month; ++other) {
-            result += iso8601DaysForMonth(new CalendarMonth(this.yearWithinInterval, other))
+            result += daysForMonth(new CalendarMonth(this.yearWithinInterval, other))
         }
         return result
     }

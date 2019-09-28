@@ -23,6 +23,7 @@
     "moment-timezone": "^0.5.23"
   },
   "dependencies": {
-    "exif-js": "^2.3.0"
+    "exif-js": "^2.3.0",
+    "react": "^16.9.0"
   }
 }

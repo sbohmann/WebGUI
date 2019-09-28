@@ -1,0 +1,13 @@
+.valueLabel {
+    font-family: sans-serif;
+    font-size: 76px;
+    font-weight: bolder;
+}
+
+.valueLabel.up {
+    color: #DB4244;
+}
+
+.valueLabel.down {
+    color: #3E42E8;
+}

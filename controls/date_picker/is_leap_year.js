@@ -1,5 +1,4 @@
-
-export function isProlepticGregorianLeapYear(year) {
+export function isLeapYear(year) {
     if (year % 400 === 0) {
         return true
     } else if (year % 100 === 0) {

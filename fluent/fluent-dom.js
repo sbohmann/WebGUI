@@ -16,6 +16,11 @@ class Element {
         }
         return this
     }
+
+    withAttribute(name, value) {
+        this.domNode.setAttribute(name, value)
+        return this
+    }
 }
 
 export function text(value) {

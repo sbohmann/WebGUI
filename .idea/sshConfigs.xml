@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" host="vim.local" id="db204da7-374e-4610-a468-972329ea6c33" port="22" customName="designer on vim.local" nameFormat="CUSTOM" username="seb">
+        <option name="customName" value="designer on vim.local" />
+      </sshConfig>
+    </configs>
+  </component>
+</project>

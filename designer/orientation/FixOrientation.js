@@ -8,7 +8,8 @@ class FixOrientation {
         if (this._orientation === null || this._orientation === 1) {
             callback(this._image)
         } else {
-            this.transformImage(callback)
+            callback(this._image)
+            // this.transformImage(callback)
         }
     }
 

@@ -33,7 +33,7 @@
       <paths name="yeoman юлия">
         <serverdata>
           <mappings>
-            <mapping deploy="/www.yeoman.at/julia" local="$PROJECT_DIR$/designer" web="/" />
+            <mapping deploy="/julia" local="$PROJECT_DIR$/designer" web="/" />
           </mappings>
         </serverdata>
       </paths>

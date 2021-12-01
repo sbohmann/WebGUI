@@ -35,8 +35,8 @@ class Page {
 
     _createCanvas() {
         this._canvas = document.createElement('canvas') //document.getElementById('canvas')
-        this._canvas.width = this._width
-        this._canvas.height = this._height
+        this._canvas.width = this._width * 2
+        this._canvas.height = this._height * 2
     }
 
     _fileSelected(event) {
